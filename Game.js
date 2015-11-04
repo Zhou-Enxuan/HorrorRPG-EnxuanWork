@@ -9,6 +9,7 @@ var mainState = {
         this.map = game.add.tileSprite(0,0,game.world.width, game.world.height, 'map');
         this.map.tileScale.set(0.4);
         this.sprite = game.add.sprite(300,10,'character')
+        this.sprite.animations.add('flap', [1,2,3,4]);
         this.cursor = game.input.keyboard.createCursorKeys();
     },
     update: function() {
@@ -23,6 +24,7 @@ var mainState = {
             this.sprite.y -= 4;
         }
         else if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
+            this.sprite.animations.play('flap');
             this.sprite.y += 4;
         }
             
