@@ -9,23 +9,26 @@ var mainState = {
         this.map = game.add.tileSprite(0,0,game.world.width, game.world.height, 'map');
         this.map.tileScale.set(0.4);
         this.sprite = game.add.sprite(300,10,'character')
-        this.sprite.animations.add('flap', [1,2,3,4]);
+        this.sprite.animations.add('flap', [0,1,2,3,0],10);
         this.cursor = game.input.keyboard.createCursorKeys();
     },
     update: function() {
          if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
-            this.sprite.x -= 4;
+            this.sprite.animations.play('flap');
+             this.sprite.x -= 2;
         }
         else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
-            this.sprite.x += 4;
+            this.sprite.animations.play('flap');
+            this.sprite.x += 2;
         }
 
         if (game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
-            this.sprite.y -= 4;
+            this.sprite.animations.play('flap');
+            this.sprite.y -= 2;
         }
         else if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
             this.sprite.animations.play('flap');
-            this.sprite.y += 4;
+            this.sprite.y += 2;
         }
             
         
