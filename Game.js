@@ -10,25 +10,37 @@ var mainState = {
 	},
     
     create: function() {
- 
+        game.physics.startSystem(Phaser.Physics.ARCADE);
+        this.walls = game.add.group();
+        this.walls.enableBody = true;
 
         this.room = [
-            [0, 0, 0],
-            [0, 1, 0],
-            [0, 0, 0]
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 2, 2, 1, 1, 1, 1, 1, 1, 1, 0],
+            [0, 2, 2, 1, 1, 1, 1, 1, 1, 1, 0],
+            [0, 2, 2, 1, 1, 1, 1, 1, 1, 1, 0],
+            [0, 2, 2, 1, 1, 1, 1, 1, 1, 1, 0],
+            [0, 2, 2, 1, 1, 1, 1, 1, 1, 1, 0],
+            [0, 2, 2, 1, 1, 1, 1, 1, 1, 1, 0],
+            [0, 2, 2, 1, 1, 1, 1, 1, 1, 1, 0],
+            [0, 2, 2, 1, 1, 1, 1, 1, 1, 1, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         ]
             for (var i=0; i<this.room.length; i++) {
-                for (var j = 0; j<this.room[i].length; j++) {
+                for (var j = 0; j<this.room[0].length; j++) {
                     if (this.room[i][j] === 1) {
                         game.add.sprite(i*32,j*32,'woodFloor');
-                    } else {
-                        game.add.sprite(i*32,j*32,'woodWall');
+                    } else if (this.room[i][j] === 0){
+                        var a = game.add.sprite(i*32,j*32,'woodWall', null, this.walls);
+                        a.body.immovable = true;
                     }
                 
                 }
             
             }
         this.sprite = game.add.sprite(300,10,'character')
+        this.sprite.collideWorldBounds = true;
+        game.physics.enable(this.sprite);
         this.sprite.animations.add('flap', [1,2,3,0],10);
         this.sprite.animations.add('flap2', [0]);
         
@@ -53,6 +65,7 @@ var mainState = {
             this.sprite.animations.play('flap2');
         }
           
+        game.physics.arcade.collide(this.sprite, this.walls);
         //Display Floor
         
     }
