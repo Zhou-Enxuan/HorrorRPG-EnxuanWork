@@ -6,13 +6,11 @@ function checkOverlap(spriteA, spriteB) {
     return Phaser.Rectangle.intersects(boundsA, boundsB);
 
 }
-var mainState = {
+var mainState2 = {
 	preload: function() {
         game.load.spritesheet('character', 'assests/images/Horror game character sprite sheet.png',32,48);
         game.load.image('woodFloor','assests/images/Tile map material/WoodFloor 2.png' );
         game.load.image('woodWall','assests/images/Tile map material/cover wall.png' );
-        game.load.image('bed','assests/images/Tile map material/histopal bed 2.png' );
-        game.load.image('bookShell','assests/images/Tile map material/book shell.png' );
         game.load.image('wall','assests/images/Tile map material/white wall.png' )
         
         
@@ -54,7 +52,7 @@ var mainState = {
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -74,6 +72,7 @@ var mainState = {
                 }
             
             }
+
         this.sprite = game.add.sprite(224,192,'character')
         this.sprite.collideWorldBounds = true;
         game.physics.enable(this.sprite);
@@ -107,8 +106,8 @@ var mainState = {
             this.sprite.y += 2;
         }
         
-        if (checkOverlap(this.sprite,this.bookShell)) {
-            game.state.start('main2');
+          if (checkOverlap(this.sprite,this.bookShell)) {
+            game.state.start('main');
         } else {
             return;
         }
@@ -121,16 +120,3 @@ var mainState = {
         
     }
 }
-
-
-
-
-
-
-
-
-var game = new Phaser.Game(640, 480, Phaser.AUTO, 'gameDiv');
-
-game.state.add('main', mainState);
-game.state.add('main2',mainState2);
-game.state.start('main');
