@@ -1,3 +1,10 @@
+var position = 0;
+function removeText() {
+
+    text.destroy();
+
+}
+
 function checkOverlap(spriteA, spriteB) {
 
     var boundsA = spriteA.getBounds();
@@ -23,6 +30,7 @@ var mainState = {
         game.load.image('bed','assests/images/Tile map material/histopal bed 2.png' );
         game.load.image('bookShell','assests/images/Tile map material/book shell.png' );
         game.load.image('wall','assests/images/Tile map material/white wall.png' );
+        var bpm
     },
 
     //function that's called after the preload function
@@ -39,14 +47,14 @@ var mainState = {
         
         this.room = [
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 2, 2, 1, 1, 1, 1, 1, 1, 1, 0],
-            [0, 2, 2, 1, 1, 1, 1, 1, 1, 1, 0],
-            [0, 2, 2, 1, 1, 1, 1, 1, 1, 1, 0],
-            [0, 2, 2, 1, 1, 1, 1, 1, 1, 1, 0],
-            [0, 2, 2, 1, 1, 1, 1, 1, 1, 1, 0],
-            [0, 2, 2, 1, 1, 1, 1, 1, 1, 1, 0],
-            [0, 2, 2, 1, 1, 1, 1, 1, 1, 1, 0],
-            [0, 2, 2, 1, 1, 1, 1, 1, 1, 1, 0],
+            [0, 3, 2, 1, 1, 1, 1, 1, 1, 1, 0],
+            [0, 3, 2, 1, 1, 1, 1, 1, 1, 1, 0],
+            [0, 3, 2, 1, 1, 1, 1, 1, 1, 1, 0],
+            [0, 3, 2, 1, 1, 1, 1, 1, 1, 1, 0],
+            [0, 3, 2, 1, 1, 1, 1, 1, 1, 1, 0],
+            [0, 3, 2, 1, 1, 1, 1, 1, 1, 1, 0],
+            [0, 3, 2, 1, 1, 1, 1, 1, 1, 1, 0],
+            [0, 3, 2, 1, 1, 1, 1, 1, 1, 1, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         ];
         
@@ -56,8 +64,10 @@ var mainState = {
                         game.add.sprite(i*32+160,j*32+64,'woodFloor');
                     } else if (this.room[i][j] === 0){
                        game.add.sprite(i*32+160,j*32+64,'woodWall', 0, this.collideWith);
-                    } else {
+                    } else if (this.room[i][j] === 2){
                         game.add.sprite(i*32+160,j*32+64,'wall')
+                    } else {
+                        game.add.sprite(i*32+160,j*32+64,'wall',0,this.collideWith);
                     }
                 
                 }
@@ -89,6 +99,8 @@ var mainState = {
             
             }
         
+        
+        
         //make bricks immovable when hit
         this.collideWith.setAll('body.immovable', true);  
         
@@ -107,6 +119,11 @@ var mainState = {
         this.sprite.animations.add('walkUp', [13,14,15,12],8);
         this.sprite.animations.add('stopUp', [12]);
         
+        this.texts = ['aaaaaa','bbbbbbb']
+        var style = {font: '20px Arial', fill:'#FFFFFF', align: 'center'};
+        this.text1 = game.add.text(0,0,"",style);
+        
+        
         //makes the sprite bouncy
         this.sprite.body.collideWorldBounds = true;
     
@@ -118,27 +135,36 @@ var mainState = {
     update: function() {
         if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
             this.sprite.animations.play('walkLeft'); 
-            this.sprite.body.velocity.x = -50;
+            this.sprite.body.velocity.x = -100;
+            this.sprite.body.velocity.y = 0;
         } 
         else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
             this.sprite.animations.play('walkRight');
-            this.sprite.body.velocity.x = 50;
+            this.sprite.body.velocity.x = 100;
+            this.sprite.body.velocity.y = 0;
 
         } 
         else if (game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
             this.sprite.animations.play('walkUp');
-            this.sprite.body.velocity.y = -50;
+            this.sprite.body.velocity.y = -100;
+            this.sprite.body.velocity.x = 0;
         }
         else if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
             this.sprite.animations.play('walkDown');
-            this.sprite.body.velocity.y = 50;
-        } else {
+            this.sprite.body.velocity.y = 100;
+            this.sprite.body.velocity.x = 0;
+        }
+        else if (/*game.physics.arcade.collide(this.sprite,this.collideWith) &&*/ game.input.keyboard.onPress(Phaser.Keyboard.A)) {
+                console.log("inside collide");
+                this.text1.text = this.texts[position++];
+        }
+        else {
             this.sprite.body.velocity.x = 0;
             this.sprite.body.velocity.y = 0;
         }
-        
+            
         //make the paddle and the sprite collidable with each other
-        game.physics.arcade.collide(this.paddle, this.sprite);
+        //game.physics.arcade.collide(this.paddle, this.sprite);
         
         //makes the sprite and the bricks collidable with each other
         //and calls the "hit" function when they collide
