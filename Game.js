@@ -36,6 +36,10 @@ var mainState = {
     //function that's called after the preload function
     //where we setup the basics of the game by displaying sprites etc
     create: function() {
+        
+        var a = this.input.keyboard.addKey(Phaser.Keyboard.A);
+        a.onDown.add(this.changeText, this);
+
         //initializes physics system for the game
         game.physics.startSystem(Phaser.Physics.ARCADE);
         
@@ -119,13 +123,13 @@ var mainState = {
         this.sprite.animations.add('walkUp', [13,14,15,12],8);
         this.sprite.animations.add('stopUp', [12]);
         
-        this.texts = ['aaaaaa','bbbbbbb']
+        this.texts = ['aaaaaa','bbbbbbb','cccccc'];
         var style = {font: '20px Arial', fill:'#FFFFFF', align: 'center'};
         this.text1 = game.add.text(0,0,"",style);
         
         
         //makes the sprite bouncy
-        this.sprite.body.collideWorldBounds = true;
+        this.sprite.body.collideWorldBounds = true; 
     
     },
     
@@ -154,10 +158,6 @@ var mainState = {
             this.sprite.body.velocity.y = 100;
             this.sprite.body.velocity.x = 0;
         }
-        else if (/*game.physics.arcade.collide(this.sprite,this.collideWith) &&*/ game.input.keyboard.onPress(Phaser.Keyboard.A)) {
-                console.log("inside collide");
-                this.text1.text = this.texts[position++];
-        }
         else {
             this.sprite.body.velocity.x = 0;
             this.sprite.body.velocity.y = 0;
@@ -176,6 +176,16 @@ var mainState = {
         } else {
             return;
         }
+        
+    },
+    
+    changeText: function() {
+        try {
+            console.log("inside collide");
+            this.text1.text = this.texts[position++];
+            } catch (err) {
+                return;
+            }
     }
     
 };
