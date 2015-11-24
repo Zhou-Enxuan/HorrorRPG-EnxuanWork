@@ -30,8 +30,11 @@ var mainState = {
         game.load.image('bed','assests/images/Tile map material/histopal bed 2.png' );
         game.load.image('bookShell','assests/images/Tile map material/book shell.png' );
         game.load.image('wall','assests/images/Tile map material/white wall.png' );
-        var bpm
+        game.load.image('HistopalFloor','assests/images/Tile map material/Histopal floor.png')
+        game.load.image('flower','assests/images/Tile map material/histopal flower.png')
+        game.load.image('HistopalShell','assests/images/Tile map material/histopal shell.png')
     },
+    
 
     //function that's called after the preload function
     //where we setup the basics of the game by displaying sprites etc
@@ -65,7 +68,7 @@ var mainState = {
         for (var i=0; i<this.room.length; i++) {
                 for (var j = 0; j<this.room[i].length; j++) {
                     if (this.room[i][j] === 1) {
-                        game.add.sprite(i*32+160,j*32+64,'woodFloor');
+                        game.add.sprite(i*32+160,j*32+64,'HistopalFloor');
                     } else if (this.room[i][j] === 0){
                        game.add.sprite(i*32+160,j*32+64,'woodWall', 0, this.collideWith);
                     } else if (this.room[i][j] === 2){
@@ -82,21 +85,30 @@ var mainState = {
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0],
             [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         ]
          
          for (var i=0; i<this.roomMaterial.length; i++) {
                 for (var j = 0; j<this.roomMaterial[i].length; j++) {
                     if (this.roomMaterial[i][j] === 1) {
-                       this.bookShell = game.add.sprite(i*32+160,j*32+64,'bookShell');
+                       this.shell = game.add.sprite(i*51.15-12.5,j*68-10,'HistopalShell');
+                       this.shell.scale.x = 1.55;
+                        this.shell.scale.y = 2;
                     } else if (this.roomMaterial[i][j] === 2) {
-                        this.bed = game.add.sprite(i*32+160,j*32+64,'bed')
+                        this.bed = game.add.sprite(i*32+160,j*32+64,'bed');
+                        this.bed.scale.x = 2;
+                        this.bed.scale.y = 2;
+                    } else if (this.roomMaterial[i][j] === 3) {
+                        this.flower = game.add.sprite(i*14+180,j*25+90,'flower');
+                        this.flower.scale.x = 1.5;
+                        this.flower.scale.y = 1.5;
+                        
                     }
                 
                 }
@@ -171,11 +183,11 @@ var mainState = {
         game.physics.arcade.collide(this.sprite, this.collideWith);
         
 
-        if (checkOverlap(this.sprite,this.bookShell)) {
+        /*if (checkOverlap(this.sprite,this.bookShell)) {
             game.state.start('main2');
         } else {
             return;
-        }
+        }*/
         
     },
     
