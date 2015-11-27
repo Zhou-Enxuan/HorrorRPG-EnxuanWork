@@ -23,16 +23,20 @@ var mainState = {
         
         //loads the sprite sprite
         game.load.spritesheet('sprite', 'assests/images/Horror game character sprite sheet.png', 32, 48);
-        
-        game.load.spritesheet('character', 'assests/images/Horror game character sprite sheet.png',32,48);
         game.load.image('woodFloor','assests/images/Tile map material/WoodFloor 2.png' );
-        game.load.image('woodWall','assests/images/Tile map material/cover wall.png' );
-        game.load.image('bed','assests/images/Tile map material/histopal bed 2.png' );
+        game.load.image('TheWall','assests/images/Tile map material/The wall.png' );
+        game.load.image('TheWall2','assests/images/Tile map material/The wall 2.png' );
+        game.load.image('TheWall3','assests/images/Tile map material/The wall 3.png' );
+        game.load.image('TheWall4','assests/images/Tile map material/The wall 4.png' );
+        game.load.image('TheWall5','assests/images/Tile map material/The wall 5.png' );
+        game.load.image('TheWall6','assests/images/Tile map material/The wall 6.png' );
+        game.load.image('bed','assests/images/Tile map material/bed 2.png' );
         game.load.image('bookShell','assests/images/Tile map material/book shell.png' );
         game.load.image('wall','assests/images/Tile map material/white wall.png' );
         game.load.image('HistopalFloor','assests/images/Tile map material/Histopal floor.png')
-        game.load.image('flower','assests/images/Tile map material/histopal flower.png')
+        game.load.image('flower','assests/images/Tile map material/desk2.png')
         game.load.image('HistopalShell','assests/images/Tile map material/histopal shell.png')
+        game.load.image('bedBlock','assests/images/Tile map material/bed block.png')
     },
     
 
@@ -53,16 +57,17 @@ var mainState = {
         this.collideWith.enableBody = true;
         
         this.room = [
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 3, 2, 1, 1, 1, 1, 1, 1, 1, 0],
-            [0, 3, 2, 1, 1, 1, 1, 1, 1, 1, 0],
-            [0, 3, 2, 1, 1, 1, 1, 1, 1, 1, 0],
-            [0, 3, 2, 1, 1, 1, 1, 1, 1, 1, 0],
-            [0, 3, 2, 1, 1, 1, 1, 1, 1, 1, 0],
-            [0, 3, 2, 1, 1, 1, 1, 1, 1, 1, 0],
-            [0, 3, 2, 1, 1, 1, 1, 1, 1, 1, 0],
-            [0, 3, 2, 1, 1, 1, 1, 1, 1, 1, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            [0, 7, 7, 7, 7, 7, 7, 7, 7, 7, 5, 9],
+            [8, 2, 2, 1, 1, 1, 1, 1, 1, 1, 8, 9],
+            [8, 2, 2, 1, 1, 1, 1, 1, 1, 1, 8, 9],
+            [8, 2, 2, 1, 1, 1, 1, 1, 1, 1, 8, 9],
+            [8, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 10],
+            [8, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 10],
+            [8, 2, 2, 1, 1, 1, 1, 1, 1, 1, 8, 9],
+            [8, 2, 2, 1, 1, 1, 1, 1, 1, 1, 8, 9],
+            [8, 2, 2, 1, 1, 1, 1, 1, 1, 1, 8, 9],
+            [4, 7, 7, 7, 7, 1, 1, 7, 7, 7, 6, 9],
+            [9, 9, 9, 9, 9, 10, 10, 9, 9, 9, 9, 9]
         ];
         
         for (var i=0; i<this.room.length; i++) {
@@ -70,11 +75,22 @@ var mainState = {
                     if (this.room[i][j] === 1) {
                         game.add.sprite(i*32+160,j*32+64,'HistopalFloor');
                     } else if (this.room[i][j] === 0){
-                       game.add.sprite(i*32+160,j*32+64,'woodWall', 0, this.collideWith);
+                       game.add.sprite(i*32+160,j*32+64,'TheWall', 0, this.collideWith);
                     } else if (this.room[i][j] === 2){
                         game.add.sprite(i*32+160,j*32+64,'wall')
-                    } else {
-                        game.add.sprite(i*32+160,j*32+64,'wall',0,this.collideWith);
+                    } else if (this.room[i][j] === 4) {
+                        game.add.sprite(i*32+160,j*32+64,'TheWall4', 0, this.collideWith);
+                    } else if (this.room[i][j] === 5) {
+                        game.add.sprite(i*32+160,j*32+64,'TheWall3', 0, this.collideWith);
+                    } else if (this.room[i][j] === 6) {
+                        game.add.sprite(i*32+160,j*32+64,'TheWall2', 0, this.collideWith);
+                    } else if (this.room[i][j] === 7) {
+                        game.add.sprite(i*32+160,j*32+64,'TheWall5', 0, this.collideWith);
+                    } else if (this.room[i][j] === 8) {
+                        game.add.sprite(i*32+160,j*32+64,'TheWall6', 0, this.collideWith);
+                    } else if (this.room[i][j] === 10) {
+                        this.door = game.add.sprite(i*32+160,j*32+64,'wall',0,this.collideWith);
+                        this.door.visible = false;
                     }
                 
                 }
@@ -83,11 +99,11 @@ var mainState = {
 
         this.roomMaterial = [
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 1, 0, 0, 2, 0, 0, 0, 0, 0],
             [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -101,19 +117,42 @@ var mainState = {
                        this.shell.scale.x = 1.55;
                         this.shell.scale.y = 2;
                     } else if (this.roomMaterial[i][j] === 2) {
-                        this.bed = game.add.sprite(i*32+160,j*32+64,'bed');
-                        this.bed.scale.x = 2;
-                        this.bed.scale.y = 2;
+                        this.bed = game.add.sprite(i*32+137,j*32+64,'bed');
+                        this.bed.scale.x = 1.3;
+                        this.bed.scale.y = 1.3;
                     } else if (this.roomMaterial[i][j] === 3) {
-                        this.flower = game.add.sprite(i*14+180,j*25+90,'flower');
-                        this.flower.scale.x = 1.5;
-                        this.flower.scale.y = 1.5;
-                        
+                        game.add.sprite(i*32+160,j*32+68,'flower');
                     }
-                
                 }
             
             }
+        
+         this.blockMe = [
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 1, 0, 0, 0, 0, 0, 3, 0],
+            [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0],
+            [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        ]
+         
+         for (var i=0; i<this.blockMe.length; i++) {
+                for (var j = 0; j<this.blockMe[i].length; j++) {
+                    if (this.blockMe[i][j] === 1) {
+                        this.histopalShell = game.add.sprite(i*32+160,j*32+24,'wall',0,this.collideWith);
+                    } else if (this.blockMe[i][j] === 2) {
+                        this.bedB = game.add.sprite(i*32+143,j*32+64,'bedBlock',0,this.collideWith);
+
+                    } else if (this.blockMe[i][j] === 3) {
+                        this.bedB = game.add.sprite(i*32+160,j*32+68,'flower',0,this.collideWith);
+
+                    }
+                }
+          }
         
         
         
@@ -121,7 +160,7 @@ var mainState = {
         this.collideWith.setAll('body.immovable', true);  
         
         //creates the sprite
-        this.sprite = game.add.sprite(224, 192, 'sprite');
+        this.sprite = game.add.sprite(303, 253, 'sprite');
         
         //enables the physics system for the sprite
         game.physics.arcade.enable(this.sprite);
@@ -181,6 +220,7 @@ var mainState = {
         //makes the sprite and the bricks collidable with each other
         //and calls the "hit" function when they collide
         game.physics.arcade.collide(this.sprite, this.collideWith);
+        game.physics.arcade.collide(this.sprite, this.collideWith,this.door1,null,this);
         
 
         /*if (checkOverlap(this.sprite,this.bookShell)) {
@@ -198,7 +238,11 @@ var mainState = {
             } catch (err) {
                 return;
             }
-    }
+    },
+    
+   door1: function(sprite,door) {
+        game.state.start('main2');
+    },
     
 };
 
