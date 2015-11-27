@@ -1,5 +1,5 @@
 var position = 0;
-function removeText() {
+this.door = null;function removeText() {
 
     text.destroy();
 
@@ -68,6 +68,7 @@ var mainState = {
             [8, 2, 2, 1, 1, 1, 1, 1, 1, 1, 8, 9],
             [4, 7, 7, 7, 7, 1, 1, 7, 7, 7, 6, 9],
             [9, 9, 9, 9, 9, 10, 10, 9, 9, 9, 9, 9]
+           
         ];
         
         for (var i=0; i<this.room.length; i++) {
@@ -220,7 +221,7 @@ var mainState = {
         //makes the sprite and the bricks collidable with each other
         //and calls the "hit" function when they collide
         game.physics.arcade.collide(this.sprite, this.collideWith);
-        game.physics.arcade.collide(this.sprite, this.collideWith,this.door1,null,this);
+        game.physics.arcade.collide(this.sprite, this.door,this.door1,null,this);
         
 
         /*if (checkOverlap(this.sprite,this.bookShell)) {
@@ -252,4 +253,4 @@ var game = new Phaser.Game(640, 480, Phaser.AUTO, 'gameDiv');
 
 game.state.add('main', mainState);
 game.state.add('main2',mainState2);
-game.state.start('main');
+game.state.start('main2');
