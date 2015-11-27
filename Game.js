@@ -219,7 +219,7 @@ var mainState = {
         
         //makes the sprite and the bricks collidable with each other
         //and calls the "hit" function when they collide
-        game.physics.arcade.collide(this.sprite, this.collideWith);
+        //game.physics.arcade.collide(this.sprite, this.collideWith);
         game.physics.arcade.collide(this.sprite, this.collideWith,this.door1,null,this);
         
 
@@ -242,7 +242,7 @@ var mainState = {
     
    door1: function(sprite,door) {
         game.state.start('main2');
-    },
+    }
     
 };
 
