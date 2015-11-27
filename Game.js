@@ -61,8 +61,8 @@ var mainState = {
             [8, 2, 2, 1, 1, 1, 1, 1, 1, 1, 8, 9],
             [8, 2, 2, 1, 1, 1, 1, 1, 1, 1, 8, 9],
             [8, 2, 2, 1, 1, 1, 1, 1, 1, 1, 8, 9],
-            [8, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 10],
-            [8, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 10],
+            [8, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 11],
+            [8, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 11],
             [8, 2, 2, 1, 1, 1, 1, 1, 1, 1, 8, 9],
             [8, 2, 2, 1, 1, 1, 1, 1, 1, 1, 8, 9],
             [8, 2, 2, 1, 1, 1, 1, 1, 1, 1, 8, 9],
@@ -90,13 +90,20 @@ var mainState = {
                     } else if (this.room[i][j] === 8) {
                         game.add.sprite(i*32+160,j*32+64,'TheWall6', 0, this.collideWith);
                     } else if (this.room[i][j] === 10) {
-                        this.door = game.add.sprite(i*32+160,j*32+64,'wall',0,this.collideWith);
+                        this.door = game.add.sprite(i*32+160,j*32+64,'wall', this.collideWith);
                         this.door.visible = false;
+                    } else if (this.room[i][j] === 11) {
+                        this.door2 = game.add.sprite(i*32+160,j*32+64,'wall', this.collideWith);
+                        this.door2.visible = false;
                     }
                 
                 }
             
             }
+        
+        game.physics.arcade.enable(this.door);
+        game.physics.arcade.enable(this.door2);
+
 
         this.roomMaterial = [
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -221,8 +228,13 @@ var mainState = {
         //makes the sprite and the bricks collidable with each other
         //and calls the "hit" function when they collide
         game.physics.arcade.collide(this.sprite, this.collideWith);
+
         game.physics.arcade.collide(this.sprite, this.door,this.door1,null,this);
-        
+
+        //game.physics.arcade.collide(this.sprite, this.collideWith,this.door1,null,this);
+        game.physics.arcade.collide(this.sprite,this.door, this.door1);
+        game.physics.arcade.collide(this.sprite,this.door2, this.door1);
+
 
         /*if (checkOverlap(this.sprite,this.bookShell)) {
             game.state.start('main2');
@@ -242,8 +254,9 @@ var mainState = {
     },
     
    door1: function(sprite,door) {
+       console.log('in');
         game.state.start('main2');
-    },
+    }
     
 };
 

@@ -57,26 +57,27 @@ var mainState2 = {
         this.collideWith.enableBody = true;
         
         this.room =[
-            [1,7,7,7,7,7,0,0,7,7,7,7,7,7,5],
-            [8,0,0,0,0,0,0,0,0,0,0,0,0,0,8],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,8],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,8],
-            [8,0,0,0,0,0,0,0,0,0,0,0,0,0,8],
-            [8,0,0,0,0,0,0,0,0,0,0,0,0,0,8],
-            [8,0,0,0,0,0,0,0,0,0,0,0,0,0,8],
-            [8,0,0,0,0,0,0,0,0,0,0,0,0,0,8],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,8],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,8],
-            [8,0,0,0,0,0,0,0,0,0,0,0,0,0,8],
-            [8,0,0,0,0,0,0,0,0,0,0,0,0,0,8],
-            [8,0,0,0,0,0,0,0,0,0,0,0,0,0,8],
-            [8,0,0,0,0,0,0,0,0,0,0,0,0,0,8],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,8],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,8],
-            [8,0,0,0,0,0,0,0,0,0,0,0,0,0,8],
-            [8,0,0,0,0,0,0,0,0,0,0,0,0,0,8],
-            [8,0,0,0,0,0,0,0,0,0,0,0,0,0,8],
-            [4,7,7,7,7,7,7,7,7,7,7,7,7,7,6]
+            [9,9,9,9,9,9,9,10,10,9,9,9,9,9,9,9],
+            [9,1,7,7,7,7,7,0,0,7,7,7,7,7,7,5],
+            [9,8,0,0,0,0,0,0,0,0,0,0,0,0,0,8],
+            [9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8],
+            [9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8],
+            [9,8,0,0,0,0,0,0,0,0,0,0,0,0,0,8],
+            [9,8,0,0,0,0,0,0,0,0,0,0,0,0,0,8],
+            [9,8,0,0,0,0,0,0,0,0,0,0,0,0,0,8],
+            [9,8,0,0,0,0,0,0,0,0,0,0,0,0,0,8],
+            [9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8],
+            [9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8],
+            [9,8,0,0,0,0,0,0,0,0,0,0,0,0,0,8],
+            [9,8,0,0,0,0,0,0,0,0,0,0,0,0,0,8],
+            [9,8,0,0,0,0,0,0,0,0,0,0,0,0,0,8],
+            [9,8,0,0,0,0,0,0,0,0,0,0,0,0,0,8],
+            [9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8],
+            [9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8],
+            [9,8,0,0,0,0,0,0,0,0,0,0,0,0,0,8],
+            [9,8,0,0,0,0,0,0,0,0,0,0,0,0,0,8],
+            [9,8,0,0,0,0,0,0,0,0,0,0,0,0,0,8],
+            [9,4,7,7,7,7,7,7,7,7,7,7,7,7,7,6]
             
            
         ];
@@ -84,29 +85,31 @@ var mainState2 = {
         for (var i=0; i<this.room.length; i++) {
                 for (var j = 0; j<this.room[i].length; j++) {
                     if (this.room[i][j] === 0) {
-                        game.add.sprite(i*32,j*32,'HistopalFloor');
+                        game.add.sprite(i*32-32,j*32-32,'HistopalFloor');
                     } else if (this.room[i][j] === 1){
-                       game.add.sprite(i*32,j*32,'TheWall', 0, this.collideWith);
+                       game.add.sprite(i*32-32,j*32-32,'TheWall', 0, this.collideWith);
                     } else if (this.room[i][j] === 2){
-                        game.add.sprite(i*32,j*32,'wall')
+                        game.add.sprite(i*32-32,j*32-32,'wall')
                     } else if (this.room[i][j] === 4) {
-                        game.add.sprite(i*32,j*32,'TheWall4', 0, this.collideWith);
+                        game.add.sprite(i*32-32,j*32-32,'TheWall4', 0, this.collideWith);
                     } else if (this.room[i][j] === 5) {
-                        game.add.sprite(i*32,j*32,'TheWall3', 0, this.collideWith);
+                        game.add.sprite(i*32-32,j*32-32,'TheWall3', 0, this.collideWith);
                     } else if (this.room[i][j] === 6) {
-                        game.add.sprite(i*32,j*32,'TheWall2', 0, this.collideWith);
+                        game.add.sprite(i*32-32,j*32-32,'TheWall2', 0, this.collideWith);
                     } else if (this.room[i][j] === 7) {
-                        game.add.sprite(i*32,j*32,'TheWall5', 0, this.collideWith);
+                        game.add.sprite(i*32-32,j*32-32,'TheWall5', 0, this.collideWith);
                     } else if (this.room[i][j] === 8) {
-                        game.add.sprite(i*32,j*32,'TheWall6', 0, this.collideWith);
+                        game.add.sprite(i*32-32,j*32-32,'TheWall6', 0, this.collideWith);
                     } else if (this.room[i][j] === 10) {
-                        overlay = game.add.sprite(i*32+160,j*32+64,'wall',0,this.collideWith);
-                        overlay.visible = false;
+                        door = game.add.sprite(i*32-32,j*32-32,'wall',0,this.collideWith);
+                        door.visible = true;
                     }
                 
                 }
             
             }
+        
+          game.physics.arcade.enable(this.door);
 
         /*this.roomMaterial = [
             [1,7,7,7,7,7,7,7,7,7,7,7,7,7,5],
@@ -154,7 +157,7 @@ var mainState2 = {
         this.collideWith.setAll('body.immovable', true);  
         
         //creates the sprite
-        this.sprite = game.add.sprite(303, 253, 'sprite');
+        this.sprite = game.add.sprite(10, 200, 'sprite',8);
         
         //enables the physics system for the sprite
         game.physics.arcade.enable(this.sprite);
@@ -214,6 +217,7 @@ var mainState2 = {
         //makes the sprite and the bricks collidable with each other
         //and calls the "hit" function when they collide
         game.physics.arcade.collide(this.sprite, this.collideWith);
+        game.physics.arcade.collide(this.sprite,this.door2, this.door1);
         
 
         /*if (checkOverlap(this.sprite,this.bookShell)) {
@@ -231,6 +235,10 @@ var mainState2 = {
             } catch (err) {
                 return;
             }
+    },
+     door1: function(sprite,door) {
+       console.log('in');
+        game.state.start('main');
     }
     
 };
