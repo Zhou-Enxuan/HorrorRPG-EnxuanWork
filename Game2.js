@@ -312,8 +312,8 @@ var mainState2 = {
         game.state.start('main3');
     },
     
-    sencondDoor: function(sprite,door) {
-       console.log('in');
+    secondDoor: function(sprite,door) {
+        console.log('in');
         game.state.start('main4');
     }
     
