@@ -1,5 +1,7 @@
 var position = 0;
-this.door = null;function removeText() {
+this.door = null;
+
+function removeText() {
 
     text.destroy();
 
@@ -15,7 +17,7 @@ function checkOverlap(spriteA, spriteB) {
 }
 
 //Defines main state
-var mainState = {
+var mainState3 = {
     
     //function that executes at the beginning of the game
     //so we load our assets here
@@ -168,7 +170,7 @@ var mainState = {
         this.collideWith.setAll('body.immovable', true);  
         
         //creates the sprite
-        this.sprite = game.add.sprite(303, 253, 'sprite');
+        this.sprite = game.add.sprite(450, 225, 'sprite',4);
         
         //enables the physics system for the sprite
         game.physics.arcade.enable(this.sprite);
@@ -261,10 +263,3 @@ var mainState = {
 };
 
 //initializes Phaser and starts the main state
-
-var game = new Phaser.Game(640, 480, Phaser.AUTO, 'gameDiv');
-
-game.state.add('main', mainState);
-game.state.add('main2',mainState2);
-game.state.add('main3',mainState3);
-game.state.start('main2');
