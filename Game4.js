@@ -15,7 +15,7 @@ function checkOverlap(spriteA, spriteB) {
 }
 
 //Defines main state
-var mainState2 = {
+var mainState4 = {
     
     //function that executes at the beginning of the game
     //so we load our assets here
@@ -47,7 +47,6 @@ var mainState2 = {
         game.load.image('desk2','assests/images/Tile map material/desk tile 2.png' );
         game.load.image('desk3','assests/images/Tile map material/desk tile 3.png' );
         game.load.image('bedBlock','assests/images/Tile map material/bed block 2.png' );
-        
         
         
     },
@@ -293,7 +292,7 @@ var mainState2 = {
 
         //game.physics.arcade.collide(this.sprite, this.collideWith,this.door1,null,this);
         game.physics.arcade.collide(this.sprite,this.door, this.door1);
-        game.physics.arcade.collide(this.sprite,this.door2, this.door2);
+        game.physics.arcade.collide(this.sprite,this.door2, this.door1);
 
 
         /*if (checkOverlap(this.sprite,this.bookShell)) {
@@ -316,11 +315,6 @@ var mainState2 = {
    door1: function(sprite,door) {
        console.log('in');
         game.state.start('main3');
-    },
-    
-    door2: function(sprite,door) {
-       console.log('in');
-        game.state.start('main4');
     }
     
 };

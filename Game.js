@@ -267,4 +267,5 @@ var game = new Phaser.Game(640, 480, Phaser.AUTO, 'gameDiv');
 game.state.add('main', mainState);
 game.state.add('main2',mainState2);
 game.state.add('main3',mainState3);
+game.state.add('main4',mainState4);
 game.state.start('main2');
