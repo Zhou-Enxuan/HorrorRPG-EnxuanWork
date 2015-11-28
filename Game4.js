@@ -23,6 +23,7 @@ var mainState4 = {
         
         //loads the sprite sprite
         game.load.spritesheet('sprite', 'assests/images/Horror game character sprite sheet.png', 32, 48);
+        game.load.spritesheet('door', 'assests/images/Tile map material/Door/Door 1.png',32,63);
         game.load.image('TheWall','assests/images/Tile map material/The wall.png' );
         game.load.image('TheWall2','assests/images/Tile map material/The wall 2.png' );
         game.load.image('TheWall3','assests/images/Tile map material/The wall 3.png' );
@@ -38,15 +39,16 @@ var mainState4 = {
         game.load.image('Body2','assests/images/Tile map material/Dead Body/Dead Body 2.png')
         game.load.image('Body3','assests/images/Tile map material/Dead Body/Dead Body 3.png')
         game.load.image('Body4','assests/images/Tile map material/Dead Body/Dead Body 4.png')
-        game.load.image('Bed','assests/images/Tile map material/histopal bed 2.png' );
-        game.load.image('Bag','assests/images/Tile map material/hsitopal bag 2.png' );
-        game.load.image('wall5','assests/images/Tile map material/wall5.png' );
+         game.load.image('wall5','assests/images/Tile map material/wall5.png' );
         game.load.image('wall6','assests/images/Tile map material/wall6.png' );
         game.load.image('wall7','assests/images/Tile map material/wall7.png' );
         game.load.image('desk','assests/images/Tile map material/desk tile.png' );
         game.load.image('desk2','assests/images/Tile map material/desk tile 2.png' );
         game.load.image('desk3','assests/images/Tile map material/desk tile 3.png' );
-        game.load.image('bedBlock','assests/images/Tile map material/bed block 2.png' );
+        game.load.image('chair','assests/images/Tile map material/Chair up.png' );
+        game.load.image('juice','assests/images/Tile map material/juice machine.png' );
+        game.load.image('coffee','assests/images/Tile map material/coffee machine.png' );
+        
         
         
     },
@@ -70,26 +72,26 @@ var mainState4 = {
         
         this.room = [
             [9,9,9,9,9,9,9,10,10,9,9,9,9,9,9,9],
-            [9,1,7,7,7,7,7,0,0,7,7,7,7,7,7,5],
+            [9,1,07,7,7,7,7,0,0,7,7,7,7,7,7,5],
             [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,8],
             [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,8],
             [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,8],
             [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,8],
             [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,8],
+            [9,8,12,12,3,0,0,0,0,0,0,0,0,0,0,8],
+            [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,8],
+            [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,8],
+            [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,0],
+            [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,0],
+            [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,8],
+            [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,8],
+            [9,8,12,12,3,0,0,0,0,0,0,0,0,0,0,8],
             [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,8],
             [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,8],
             [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,8],
             [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,8],
             [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,8],
-            [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,8],
-            [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,8],
-            [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,8],
-            [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,8],
-            [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,8],
-            [9,8,11,2,3,0,0,12,12,12,12,12,0,0,0,8],
-            [9,8,11,2,3,0,0,12,0,0,0,0,0,0,0,8],
-            [9,8,11,2,3,0,0,12,0,0,0,0,0,0,0,8],
-            [9,4,7,7,7,7,7,7,7,7,7,7,7,0,0,6]
+            [9,4,7,7,7,7,7,7,7,7,7,7,7,7,7,6]
            
         ];
         
@@ -118,10 +120,9 @@ var mainState4 = {
                         this.door.visible = false;
                     } else if (this.room[i][j] === 11){
                         game.add.sprite(i*32-32,j*32-32,'wall7')
-                    } else if (this.room[i][j] === 12){
-                        game.add.sprite(i*32-32,j*32-32,'desk',0,this.collideWith)
+                    }  else if (this.room[i][j] === 12){
+                        game.add.sprite(i*32-32,j*32-32,'desk')
                     }
-                
                 }
             
             }
@@ -133,27 +134,29 @@ var mainState4 = {
 
 
         this.roomMaterial = [
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,5,0,0,0,0,3,0,0,0,0,0,0],
-            [0,0,0,6,0,2,0,0,0,0,0,0,2,0,0],
-            [0,0,0,0,0,0,0,4,0,0,0,2,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,5,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,6,0,0,0,0,0,0,0,0,3,0,0],
-            [0,0,0,0,4,0,1,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,5,0,0,0,0,0,3,0,0,0,0,0],
-            [0,0,0,6,0,0,0,0,0,0,0,0,0,2,0],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,3,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,5,0,0,0,0,1,0,0,2,0,0,0],
-            [0,0,0,6,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,3,0,4,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0,8,0,0,0],
-            [0,0,0,5,1,0,0,0,0,0,0,7,0,0,0],
-            [0,0,0,6,0,0,0,0,0,0,0,7,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,1,0,0,1,0,0,1,0,0,0],
+            [0,0,0,0,2,0,1,0,0,1,0,0,1,0,0,0],
+            [0,0,0,0,2,0,1,0,0,1,0,0,1,0,0,0],
+            [0,0,0,0,2,0,1,0,0,1,0,0,1,0,0,0],
+            [0,0,0,0,2,0,1,0,0,1,0,0,1,0,0,0],
+            [0,0,0,0,2,0,1,0,0,1,0,0,1,0,0,0],
+            [0,0,0,0,2,0,1,0,0,1,0,0,1,0,0,0],
+            [0,0,0,0,3,0,1,0,0,1,0,0,1,0,0,0],
+            [0,0,0,0,2,0,1,0,0,1,0,0,1,0,0,0],
+            [0,0,0,0,0,0,1,0,0,1,0,0,1,0,0,0],
+            [0,0,0,0,0,0,1,0,0,1,0,0,1,0,0,0],
+            [0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+            
+            
         ]
         
         
@@ -161,65 +164,60 @@ var mainState4 = {
          for (var i=0; i<this.roomMaterial.length; i++) {
                 for (var j = 0; j<this.roomMaterial[i].length; j++) {
                     if (this.roomMaterial[i][j] === 1) {
-                     game.add.sprite(i*32,j*32,'Body1', 0, this.collideWith2);
-                   } else if (this.roomMaterial[i][j] === 2) {
-                        game.add.sprite(i*32,j*32,'Body2', 0, this.collideWith2);
-                   } else if (this.roomMaterial[i][j] === 3) {
-                        game.add.sprite(i*32,j*32,'Body3', 0, this.collideWith2);
-                   }  else if (this.roomMaterial[i][j] === 4) {
-                        game.add.sprite(i*32,j*32,'Body4', 0, this.collideWith2);
-                   } else if (this.roomMaterial[i][j] === 5) {
-                        game.add.sprite(i*32,j*32,'Bed');
-                   }  else if (this.roomMaterial[i][j] === 6) {
-                        game.add.sprite(i*32,j*32,'Bag');
-                   }  else if (this.roomMaterial[i][j] === 7) {
-                        game.add.sprite(i*32,j*32,'desk2');
-                   }  else if (this.roomMaterial[i][j] === 8) {
-                        game.add.sprite(i*32,j*32,'desk3');
-                   }  
+                     game.add.sprite(i*32-55,j*32-24,'chair', 0, this.collideWith2);
+                   }   else if (this.roomMaterial[i][j] === 2){
+                        game.add.sprite(i*32-32,j*32-32,'desk2')
+                   }  else if (this.roomMaterial[i][j] === 3){
+                        game.add.sprite(i*32-32,j*32-32,'desk3')
+                   }  else if (this.roomMaterial[i][j] === 4){
+                       this.juice = game.add.sprite(i*32-32,j*32-32,'juice')
+                       this.juice.scale.x = 1.5;
+                       this.juice.scale.y = 1.5;
+                   } else if (this.roomMaterial[i][j] === 5){
+                       this.coffee = game.add.sprite(i*32-48,j*32-32,'coffee')
+                       this.coffee.scale.x = 1.5;
+                       this.coffee.scale.y = 1.5;
+                   } else if (this.roomMaterial[i][j] === 6){
+                       this.door = game.add.sprite(i*32-48,j*32-28.6,'door',0)
+                       
+                   }
                 }
             }
         
           this.blockMe = [
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,1,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,1,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,1,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,1,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0,2,0,0,0],
-            [0,0,0,1,0,0,0,0,0,0,0,2,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0,2,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0,0,3,3,0],
-              
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         ]
          
          for (var i=0; i<this.blockMe.length; i++) {
                 for (var j = 0; j<this.blockMe[i].length; j++) {
                      if (this.blockMe[i][j] === 1) {
-                        this.bed = game.add.sprite(i*32,j*32-16,'bedBlock',0,this.collideWith2);
-                    } else if (this.blockMe[i][j] === 2) {
-                        this.block = game.add.sprite(i*32,j*32-32,'desk3',0,this.collideWith2);
-                        this.block.visible = false;
-                   }  else if (this.blockMe[i][j] === 3) {
-                        this.door2 = game.add.sprite(i*32-2,j*32,'wall', this.collideWith);
-                        this.door2.visible = false
-                    }
+                        this.doorB = game.add.sprite(i*32-48,j*32-55,'door',0,this.collideWith2);
+                        this.doorB.visible = false;
+                    } 
                 }
           }
         
-         game.physics.arcade.enable(this.door2);
+         
         
         
         
@@ -292,7 +290,7 @@ var mainState4 = {
 
         //game.physics.arcade.collide(this.sprite, this.collideWith,this.door1,null,this);
         game.physics.arcade.collide(this.sprite,this.door, this.door1);
-        game.physics.arcade.collide(this.sprite,this.door2, this.door1);
+       // game.physics.arcade.collide(this.sprite,this.door2, this.door1);
 
 
         /*if (checkOverlap(this.sprite,this.bookShell)) {

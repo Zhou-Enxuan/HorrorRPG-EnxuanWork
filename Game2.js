@@ -87,9 +87,9 @@ var mainState2 = {
             [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,8],
             [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,8],
             [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,8],
-            [9,8,11,2,3,0,0,12,12,12,12,12,0,0,0,8],
-            [9,8,11,2,3,0,0,12,0,0,0,0,0,0,0,8],
-            [9,8,11,2,3,0,0,12,0,0,0,0,0,0,0,8],
+            [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,8],
+            [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,8],
+            [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,8],
             [9,4,7,7,7,7,7,7,7,7,7,7,7,0,0,6]
            
         ];
@@ -119,9 +119,7 @@ var mainState2 = {
                         this.door.visible = false;
                     } else if (this.room[i][j] === 11){
                         game.add.sprite(i*32-32,j*32-32,'wall7')
-                    } else if (this.room[i][j] === 12){
-                        game.add.sprite(i*32-32,j*32-32,'desk',0,this.collideWith)
-                    }
+                    } 
                 
                 }
             
@@ -150,9 +148,9 @@ var mainState2 = {
             [0,0,0,5,0,0,0,0,1,0,0,2,0,0,0],
             [0,0,0,6,0,0,0,0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,3,0,4,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0,8,0,0,0],
-            [0,0,0,5,1,0,0,0,0,0,0,7,0,0,0],
-            [0,0,0,6,0,0,0,0,0,0,0,7,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,5,1,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,6,0,0,0,0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
         ]
@@ -173,11 +171,7 @@ var mainState2 = {
                         game.add.sprite(i*32,j*32,'Bed');
                    }  else if (this.roomMaterial[i][j] === 6) {
                         game.add.sprite(i*32,j*32,'Bag');
-                   }  else if (this.roomMaterial[i][j] === 7) {
-                        game.add.sprite(i*32,j*32,'desk2');
-                   }  else if (this.roomMaterial[i][j] === 8) {
-                        game.add.sprite(i*32,j*32,'desk3');
-                   }  
+                   } 
                 }
             }
         
@@ -214,7 +208,7 @@ var mainState2 = {
                         this.block = game.add.sprite(i*32,j*32-32,'desk3',0,this.collideWith2);
                         this.block.visible = false;
                    }  else if (this.blockMe[i][j] === 3) {
-                        this.door2 = game.add.sprite(i*32-2,j*32,'wall', this.collideWith);
+                        this.door2 = game.add.sprite(i*32-10,j*32,'wall', this.collideWith);
                         this.door2.visible = false
                     }
                 }
@@ -293,7 +287,7 @@ var mainState2 = {
 
         //game.physics.arcade.collide(this.sprite, this.collideWith,this.door1,null,this);
         game.physics.arcade.collide(this.sprite,this.door, this.door1);
-        game.physics.arcade.collide(this.sprite,this.door2, this.door2);
+        game.physics.arcade.collide(this.sprite,this.door2, this.secondDoor);
 
 
         /*if (checkOverlap(this.sprite,this.bookShell)) {
@@ -318,7 +312,7 @@ var mainState2 = {
         game.state.start('main3');
     },
     
-    door2: function(sprite,door) {
+    sencondDoor: function(sprite,door) {
        console.log('in');
         game.state.start('main4');
     }
