@@ -15,7 +15,7 @@ function checkOverlap(spriteA, spriteB) {
 }
 
 //Defines main state
-var mainState2 = {
+var mainState5 = {
     
     //function that executes at the beginning of the game
     //so we load our assets here
@@ -47,6 +47,10 @@ var mainState2 = {
         game.load.image('desk2','assests/images/Tile map material/desk tile 2.png' );
         game.load.image('desk3','assests/images/Tile map material/desk tile 3.png' );
         game.load.image('bedBlock','assests/images/Tile map material/bed block 2.png' );
+        game.load.image('showdow1','assests/images/Tile map material/showdow 1.png' );
+        game.load.image('showdow2','assests/images/Tile map material/showdow 2.png' );
+        game.load.image('showdow3','assests/images/Tile map material/showdow 3.png' );
+        game.load.image('showdow4','assests/images/Tile map material/showdow 4.png' );
         
         
         
@@ -224,7 +228,7 @@ var mainState2 = {
         this.collideWith2.setAll('body.immovable', true);
         
         //creates the sprite
-        this.sprite = game.add.sprite(0, 200, 'sprite',8);
+        this.sprite = game.add.sprite(600, 395, 'sprite',4);
         
         //enables the physics system for the sprite
         game.physics.arcade.enable(this.sprite);

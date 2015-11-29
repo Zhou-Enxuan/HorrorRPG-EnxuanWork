@@ -268,4 +268,7 @@ game.state.add('main', mainState);
 game.state.add('main2',mainState2);
 game.state.add('main3',mainState3);
 game.state.add('main4',mainState4);
-game.state.start('main2');
+game.state.add('main5',mainState5);
+game.state.add('main6',mainState6);
+game.state.add('main7',mainState7);
+game.state.start('main6');
