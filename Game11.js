@@ -15,7 +15,7 @@ function checkOverlap(spriteA, spriteB) {
 }
 
 //Defines main state
-var mainState6 = {
+var mainState11 = {
     
     //function that executes at the beginning of the game
     //so we load our assets here
@@ -34,10 +34,10 @@ var mainState6 = {
         game.load.image('blood1','assests/images/Tile map material/Blood/Blood 1.png');
         game.load.image('blood2','assests/images/Tile map material/Blood/Blood 2.png');
         game.load.image('blood3','assests/images/Tile map material/Blood/Blood 3.png');
-        game.load.image('Body1','assests/images/Tile map material/Dead Body/Dead Body 1.png')
-        game.load.image('Body2','assests/images/Tile map material/Dead Body/Dead Body 2.png')
-        game.load.image('Body3','assests/images/Tile map material/Dead Body/Dead Body 3.png')
-        game.load.image('Body4','assests/images/Tile map material/Dead Body/Dead Body 4.png')
+        game.load.image('Body1','assests/images/Tile map material/Dead Body/Dead Body 1.png');
+        game.load.image('Body2','assests/images/Tile map material/Dead Body/Dead Body 2.png');
+        game.load.image('Body3','assests/images/Tile map material/Dead Body/Dead Body 3.png');
+        game.load.image('Body4','assests/images/Tile map material/Dead Body/Dead Body 4.png');
         game.load.image('Bed','assests/images/Tile map material/histopal bed 2.png' );
         game.load.image('Bag','assests/images/Tile map material/hsitopal bag 2.png' );
         game.load.image('wall5','assests/images/Tile map material/wall5.png' );
@@ -192,7 +192,7 @@ var mainState6 = {
         this.collideWith4.setAll('body.immovable', true);
         
         //creates the sprite
-        this.sprite = game.add.sprite(310, 480, 'sprite',12);
+        this.sprite = game.add.sprite(300, 0, 'sprite');
         
         //enables the physics system for the sprite
         game.physics.arcade.enable(this.sprite);
@@ -285,9 +285,9 @@ var mainState6 = {
        console.log('in');
         game.state.start('main8');
     },
-     thirdDoor: function(sprite,door) {
+    thirdDoor: function(sprite,door) {
        console.log('in');
         game.state.start('main10');
-     }
+    }
     
 };

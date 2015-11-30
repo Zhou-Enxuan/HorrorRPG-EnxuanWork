@@ -15,7 +15,7 @@ function checkOverlap(spriteA, spriteB) {
 }
 
 //Defines main state
-var mainState6 = {
+var mainState9 = {
     
     //function that executes at the beginning of the game
     //so we load our assets here
@@ -192,7 +192,7 @@ var mainState6 = {
         this.collideWith4.setAll('body.immovable', true);
         
         //creates the sprite
-        this.sprite = game.add.sprite(310, 480, 'sprite',12);
+        this.sprite = game.add.sprite(210, 200, 'sprite',8);
         
         //enables the physics system for the sprite
         game.physics.arcade.enable(this.sprite);
@@ -286,7 +286,7 @@ var mainState6 = {
         game.state.start('main8');
     },
      thirdDoor: function(sprite,door) {
-       console.log('in');
+        console.log('in');
         game.state.start('main10');
      }
     
