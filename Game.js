@@ -1,4 +1,6 @@
 var position = 0;
+var key = false;
+var flag = true;
 this.door = null;function removeText() {
 
     text.destroy();
@@ -33,10 +35,12 @@ var mainState = {
         game.load.image('bed','assests/images/Tile map material/bed 2.png' );
         game.load.image('bookShell','assests/images/Tile map material/book shell.png' );
         game.load.image('wall','assests/images/Tile map material/white wall.png' );
-        game.load.image('HistopalFloor','assests/images/Tile map material/Histopal floor.png')
-        game.load.image('flower','assests/images/Tile map material/desk2.png')
-        game.load.image('HistopalShell','assests/images/Tile map material/histopal shell.png')
-        game.load.image('bedBlock','assests/images/Tile map material/bed block.png')
+        game.load.image('HistopalFloor','assests/images/Tile map material/Histopal floor.png');
+        game.load.image('flower','assests/images/Tile map material/desk2.png');
+        game.load.image('HistopalShell','assests/images/Tile map material/histopal shell.png');
+        game.load.image('bedBlock','assests/images/Tile map material/bed block.png');
+        game.load.image('textbox','assests/images/TextBox.png');
+        
     },
     
 
@@ -55,10 +59,12 @@ var mainState = {
         
         //desc
         this.collideWith.enableBody = true;
+
+        
         
         this.room = [
             [0, 7, 7, 7, 7, 7, 7, 7, 7, 7, 5, 9],
-            [8, 2, 2, 1, 1, 1, 1, 1, 1, 1, 8, 9],
+            [8, 2, 2, 1, 1, 1, 1, 1, 1, 3, 8, 9],
             [8, 2, 2, 1, 1, 1, 1, 1, 1, 1, 8, 9],
             [8, 2, 2, 1, 1, 1, 1, 1, 1, 1, 8, 9],
             [8, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 11],
@@ -79,6 +85,8 @@ var mainState = {
                        game.add.sprite(i*32+160,j*32+64,'TheWall', 0, this.collideWith);
                     } else if (this.room[i][j] === 2){
                         game.add.sprite(i*32+160,j*32+64,'wall')
+                    } else if (this.room[i][j] === 3){
+                        this.doorKey = game.add.sprite(i*32+160,j*32+64,'HistopalFloor');
                     } else if (this.room[i][j] === 4) {
                         game.add.sprite(i*32+160,j*32+64,'TheWall4', 0, this.collideWith);
                     } else if (this.room[i][j] === 5) {
@@ -182,13 +190,21 @@ var mainState = {
         this.sprite.animations.add('walkUp', [13,14,15,12],8);
         this.sprite.animations.add('stopUp', [12]);
         
-        this.texts = ['aaaaaa','bbbbbbb','cccccc'];
-        var style = {font: '20px Arial', fill:'#FFFFFF', align: 'center'};
-        this.text1 = game.add.text(0,0,"",style);
+
         
         
         //makes the sprite bouncy
         this.sprite.body.collideWorldBounds = true; 
+        this.textbox = game.add.sprite(12,300,'textbox');
+        this.textbox.scale.x = 0.3;
+        this.textbox.scale.y = 0.2;
+        
+        this.textbox.visible = false;
+        
+        this.texts = ['This is the key to the door!!!'];
+        this.textsDoor = ['The door is locked'];
+        var style = {font: '20px Arial', fill:'#FFFFFF', align: 'center'};
+        this.text1 = game.add.text(50,320,"",style);
     
     },
     
@@ -196,32 +212,37 @@ var mainState = {
     //function that is called 60 times per second
     //where we put the logic of the game
     update: function() {
-        if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
-            this.sprite.animations.play('walkLeft'); 
-            this.sprite.body.velocity.x = -100;
-            this.sprite.body.velocity.y = 0;
-        } 
-        else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
-            this.sprite.animations.play('walkRight');
-            this.sprite.body.velocity.x = 100;
-            this.sprite.body.velocity.y = 0;
+        
+        if (flag) {
+        
+            if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
+                this.sprite.animations.play('walkLeft'); 
+                this.sprite.body.velocity.x = -100;
+                this.sprite.body.velocity.y = 0;
+            } 
+            else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
+                this.sprite.animations.play('walkRight');
+                this.sprite.body.velocity.x = 100;
+                this.sprite.body.velocity.y = 0;
 
-        } 
-        else if (game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
-            this.sprite.animations.play('walkUp');
-            this.sprite.body.velocity.y = -100;
-            this.sprite.body.velocity.x = 0;
-        }
-        else if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
-            this.sprite.animations.play('walkDown');
-            this.sprite.body.velocity.y = 100;
-            this.sprite.body.velocity.x = 0;
-        }
-        else {
-            this.sprite.body.velocity.x = 0;
-            this.sprite.body.velocity.y = 0;
-        }
+            } 
+            else if (game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
+                this.sprite.animations.play('walkUp');
+                this.sprite.body.velocity.y = -100;
+                this.sprite.body.velocity.x = 0;
+            }
+            else if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
+                this.sprite.animations.play('walkDown');
+                this.sprite.body.velocity.y = 100;
+                this.sprite.body.velocity.x = 0;
+            }
+            else {
+                this.sprite.body.velocity.x = 0;
+                this.sprite.body.velocity.y = 0;
+            }
             
+        }
+
         //make the paddle and the sprite collidable with each other
         //game.physics.arcade.collide(this.paddle, this.sprite);
         
@@ -233,29 +254,44 @@ var mainState = {
 
         //game.physics.arcade.collide(this.sprite, this.collideWith,this.door1,null,this);
         game.physics.arcade.collide(this.sprite,this.door, this.door1);
-        game.physics.arcade.collide(this.sprite,this.door2, this.door1);
+        game.physics.arcade.collide(this.sprite,this.door2, this.door2);
 
 
-        /*if (checkOverlap(this.sprite,this.bookShell)) {
-            game.state.start('main2');
-        } else {
-            return;
-        }*/
+        
         
     },
     
     changeText: function() {
-        try {
-            console.log("inside collide");
-            this.text1.text = this.texts[position++];
+        if (checkOverlap(this.sprite,this.doorKey)) {
+            flag = false;
+            key = true;
+            this.textbox.visible = true;
+            try {
+                console.log("inside collide");
+                this.text1.text = this.texts[position++];
             } catch (err) {
+                flag = true;
+                this.text1.text = '';
+                this.textbox.visible = false;
                 return;
             }
+            
+        } else {
+            return;
+        }
     },
     
-   door1: function(sprite,door) {
-       console.log('in');
-        game.state.start('main2');
+    door1: function(sprite,door) {
+       if (key) {
+            console.log('in');
+            game.state.start('main2');
+       } else {
+           this.textbox.visible = true;
+           this.text1.text = this.textsDoor[0];
+           flag = false;
+           this.sprite.body.velocity.x = 0;
+           return;
+       }
     }
     
 };
@@ -275,4 +311,4 @@ game.state.add('main8',mainState8);
 game.state.add('main9',mainState9);
 game.state.add('main10',mainState10);
 game.state.add('main11',mainState11);
-game.state.start('main2');
+game.state.start('main');
