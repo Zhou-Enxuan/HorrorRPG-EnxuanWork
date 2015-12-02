@@ -1,11 +1,14 @@
 var position = 0;
 var key = false;
 var flag = true;
+var onL = true;
 this.door = null;function removeText() {
 
     text.destroy();
 
 }
+
+
 
 function checkOverlap(spriteA, spriteB) {
 
@@ -50,7 +53,8 @@ var mainState = {
         
         var a = this.input.keyboard.addKey(Phaser.Keyboard.A);
         a.onDown.add(this.changeText, this);
-
+        
+        
         //initializes physics system for the game
         game.physics.startSystem(Phaser.Physics.ARCADE);
         
@@ -205,6 +209,7 @@ var mainState = {
         this.textsDoor = ['The door is locked'];
         var style = {font: '20px Arial', fill:'#FFFFFF', align: 'center'};
         this.text1 = game.add.text(50,320,"",style);
+        
     
     },
     
@@ -254,7 +259,7 @@ var mainState = {
 
         //game.physics.arcade.collide(this.sprite, this.collideWith,this.door1,null,this);
         game.physics.arcade.collide(this.sprite,this.door, this.door1);
-        game.physics.arcade.collide(this.sprite,this.door2, this.door2);
+        game.physics.arcade.collide(this.sprite,this.door2, this.door1);
 
 
         
@@ -276,6 +281,11 @@ var mainState = {
                 return;
             }
             
+        } else if (!onL) {
+            flag = true;
+            onL = true;
+            this.text1.text = '';
+            this.textbox.visible = false;
         } else {
             return;
         }
@@ -289,8 +299,8 @@ var mainState = {
            this.textbox.visible = true;
            this.text1.text = this.textsDoor[0];
            flag = false;
+           onL = false;
            this.sprite.body.velocity.x = 0;
-           return;
        }
     }
     
