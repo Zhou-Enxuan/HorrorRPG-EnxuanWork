@@ -2,13 +2,14 @@ var position = 0;
 var key = false;
 var flag = true;
 var onL = true;
+var textsDoor;
+var text1;
 this.door = null;function removeText() {
 
     text.destroy();
 
 }
-
-
+var textbox;
 
 function checkOverlap(spriteA, spriteB) {
 
@@ -21,7 +22,6 @@ function checkOverlap(spriteA, spriteB) {
 
 //Defines main state
 var mainState = {
-    
     //function that executes at the beginning of the game
     //so we load our assets here
     preload: function() {
@@ -63,6 +63,11 @@ var mainState = {
         
         //desc
         this.collideWith.enableBody = true;
+        
+        this.door2 = game.add.group();
+        
+        //desc
+        this.door2.enableBody = true;
 
         
         
@@ -80,6 +85,8 @@ var mainState = {
             [9, 9, 9, 9, 9, 10, 10, 9, 9, 9, 9, 9]
            
         ];
+        
+        
         
         for (var i=0; i<this.room.length; i++) {
                 for (var j = 0; j<this.room[i].length; j++) {
@@ -105,8 +112,7 @@ var mainState = {
                         this.door = game.add.sprite(i*32+160,j*32+64,'wall', this.collideWith);
                         this.door.visible = false;
                     } else if (this.room[i][j] === 11) {
-                        this.door2 = game.add.sprite(i*32+160,j*32+64,'wall', this.collideWith);
-                        this.door2.visible = false;
+                        game.add.sprite(i*32+160,j*32+64,'wall', 0,this.door2);
                     }
                 
                 }
@@ -114,7 +120,7 @@ var mainState = {
             }
         
         game.physics.arcade.enable(this.door);
-        game.physics.arcade.enable(this.door2);
+        this.door2.visible = false;
 
 
         this.roomMaterial = [
@@ -177,7 +183,8 @@ var mainState = {
         
         
         //make bricks immovable when hit
-        this.collideWith.setAll('body.immovable', true);  
+        this.collideWith.setAll('body.immovable', true);
+        this.door2.setAll('body.immovable', true);
         
         //creates the sprite
         this.sprite = game.add.sprite(303, 253, 'sprite');
@@ -199,16 +206,16 @@ var mainState = {
         
         //makes the sprite bouncy
         this.sprite.body.collideWorldBounds = true; 
-        this.textbox = game.add.sprite(12,300,'textbox');
-        this.textbox.scale.x = 0.3;
-        this.textbox.scale.y = 0.2;
+        textbox = game.add.sprite(12,300,'textbox');
+        textbox.scale.x = 0.3;
+        textbox.scale.y = 0.2;
         
-        this.textbox.visible = false;
+        textbox.visible = false;
         
         this.texts = ['This is the key to the door!!!'];
-        this.textsDoor = ['The door is locked'];
+        textsDoor = ['The door is locked','This key didn\'t fit the door'];
         var style = {font: '20px Arial', fill:'#FFFFFF', align: 'center'};
-        this.text1 = game.add.text(50,320,"",style);
+        text1 = game.add.text(50,320,"",style);
         
     
     },
@@ -258,46 +265,63 @@ var mainState = {
         game.physics.arcade.collide(this.sprite, this.door,this.door1,null,this);
 
         //game.physics.arcade.collide(this.sprite, this.collideWith,this.door1,null,this);
-        game.physics.arcade.collide(this.sprite,this.door, this.door1);
-        game.physics.arcade.collide(this.sprite,this.door2, this.door1);
+        game.physics.arcade.collide(this.sprite,this.door2, this.second);
 
+        game.physics.arcade.collide(this.sprite,this.door, this.door1);
 
         
         
     },
-    
     changeText: function() {
         if (checkOverlap(this.sprite,this.doorKey)) {
             flag = false;
             key = true;
-            this.textbox.visible = true;
+            textbox.visible = true;
             try {
                 console.log("inside collide");
-                this.text1.text = this.texts[position++];
+                text1.text = this.texts[position++];
             } catch (err) {
                 flag = true;
-                this.text1.text = '';
-                this.textbox.visible = false;
+                text1.text = '';
+                textbox.visible = false;
                 return;
             }
             
         } else if (!onL) {
             flag = true;
             onL = true;
-            this.text1.text = '';
-            this.textbox.visible = false;
+            text1.text = '';
+            textbox.visible = false;
         } else {
             return;
         }
     },
     
+    second: function(sprite, door) {
+        if (!key) {
+            
+            console.log(textbox);
+            textbox.visible = true;
+            text1.text = textsDoor[0];
+            onL = false;
+            flag = false;
+        } else {
+            console.log(textbox);
+            textbox.visible = true;
+            text1.text = textsDoor[1];
+            onL = false;
+            flag = false;  
+        }
+    },
+    
     door1: function(sprite,door) {
+        console.log(textbox)
        if (key) {
             console.log('in');
             game.state.start('main2');
        } else {
-           this.textbox.visible = true;
-           this.text1.text = this.textsDoor[0];
+           textbox.visible = true;
+           text1.text = textsDoor[0];
            flag = false;
            onL = false;
            this.sprite.body.velocity.x = 0;
