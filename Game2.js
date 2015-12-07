@@ -52,6 +52,7 @@ var mainState2 = {
         game.load.image('desk3','assests/images/Tile map material/desk tile 3.png' );
         game.load.image('bedBlock','assests/images/Tile map material/bed block 2.png' );
         game.load.image('textbox','assests/images/TextBox.png');
+        game.load.image('oldbook','assests/images/Tile map material/old book.png' );
         
         
         
@@ -141,24 +142,24 @@ var mainState2 = {
 
         this.roomMaterial = [
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,5,0,0,0,0,3,0,0,0,0,0,0],
-            [0,0,0,6,0,2,0,0,0,0,0,0,2,0,0],
-            [0,0,0,0,0,0,0,4,0,0,0,2,0,0,0],
+            [0,0,0,5,0,0,0,0,5,0,0,0,0,0,0],
+            [0,0,0,6,0,0,0,0,6,0,0,0,2,0,0],
+            [0,0,0,0,0,2,0,0,0,0,0,2,0,0,0],
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,5,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,6,0,0,0,0,0,0,0,0,3,0,0],
-            [0,0,0,0,4,0,1,0,0,0,0,0,0,0,0],
+            [0,0,0,5,0,0,1,0,5,0,0,0,0,0,0],
+            [0,0,0,6,0,0,0,0,6,0,0,0,3,0,0],
+            [0,0,0,0,4,0,0,0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,5,0,0,0,0,0,3,0,0,0,0,0],
-            [0,0,0,6,0,0,0,0,0,0,0,0,0,2,0],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,5,0,0,0,0,5,0,0,0,0,0,0],
+            [0,0,0,6,0,0,0,0,6,0,0,0,0,2,0],
+            [0,0,0,0,0,0,2,0,0,0,0,0,0,0,0],
             [0,0,0,0,3,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,5,0,0,0,0,1,0,0,2,0,0,0],
-            [0,0,0,6,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,5,0,0,0,0,5,0,0,2,0,0,0],
+            [0,0,0,6,0,0,0,0,6,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,3,0,4,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,5,1,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,6,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,5,1,0,0,3,5,0,0,0,0,0,0],
+            [0,0,0,6,0,9,0,7,6,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
         ]
@@ -179,30 +180,37 @@ var mainState2 = {
                         game.add.sprite(i*32,j*32,'Bed');
                    }  else if (this.roomMaterial[i][j] === 6) {
                         game.add.sprite(i*32,j*32,'Bag');
+                   } else if (this.roomMaterial[i][j] === 7) {
+                       this.book = game.add.sprite(i*32,j*32,'oldbook', this.collideWith2);
+                       this.book.scale.x = 1.2;
+                       this.book.scale.y = 1.2;
                    } 
                 }
             }
         
+        this.beds = game.add.group();
+        this.beds.enableBody = true;
+        
           this.blockMe = [
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,1,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,1,0,0,0,0,1,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,1,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,1,0,0,0,0,1,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,1,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,1,0,0,0,0,1,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,1,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,1,0,0,0,0,1,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,1,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,1,0,0,0,0,1,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,2,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0,0,0,3,3,0],
               
@@ -211,14 +219,20 @@ var mainState2 = {
          for (var i=0; i<this.blockMe.length; i++) {
                 for (var j = 0; j<this.blockMe[i].length; j++) {
                      if (this.blockMe[i][j] === 1) {
-                        this.bed = game.add.sprite(i*32,j*32-16,'bedBlock',0,this.collideWith2);
-                        this.bed.visible = false;
+                        this.bed = game.add.sprite(i*32,j*32+6,'bedBlock',0,this.beds);
+                         this.bed.visible = false;
+                         this.bed.scale.y = 0.5;
+                    } else if (this.blockMe[i][j] === 2) {
+                        this.bookB = game.add.sprite(i*32-10,j*32,'wall');
+                        this.bookB.visible = false;
                     } else if (this.blockMe[i][j] === 3) {
                         this.door2 = game.add.sprite(i*32-10,j*32,'wall', this.collideWith);
                         this.door2.visible = false
                     }
                 }
           }
+        
+         
         
          game.physics.arcade.enable(this.door2);
         
@@ -227,6 +241,7 @@ var mainState2 = {
         //make bricks immovable when hit
         this.collideWith.setAll('body.immovable', true);  
         this.collideWith2.setAll('body.immovable', true);
+        this.beds.setAll('body.immovable', true);
         
         //creates the sprite
         this.sprite = game.add.sprite(0, 200, 'sprite',8);
@@ -255,8 +270,12 @@ var mainState2 = {
         this.textbox.scale.y = 0.2;
         
         this.texts = ['What happened here!?','Why everyone is dead?','Who kill them, is he still around here?'];
+        this.bookTexts = ['HELP!', 'HELP! HELP!!', 'HELP! HELP!! HELP!! HELP!! HELP!!','HELPHELPHELPHELPHELPHELPHELPHELPHELPHELPHELPHELPHELPHELPHELPHELPHELP']
         var style = {font: '20px Arial', fill:'#FFFFFF', align: 'center'};
+        var style2 = {font: '20px Arial', fill:'#FF0000', align: 'center'};
         this.text1 = game.add.text(50,320,'OH MY GOOOOOOOD!!!',style);
+        this.text2 = game.add.text(50,320,'',style2);
+
         
         
     
@@ -292,6 +311,9 @@ var mainState2 = {
                 this.sprite.body.velocity.x = 0;
                 this.sprite.body.velocity.y = 0;
             }
+        } else {
+            this.sprite.body.velocity.x = 0;
+            this.sprite.body.velocity.y = 0;
         }
             
         //make the paddle and the sprite collidable with each other
@@ -301,6 +323,7 @@ var mainState2 = {
         //and calls the "hit" function when they collide
         game.physics.arcade.collide(this.sprite, this.collideWith);
         game.physics.arcade.collide(this.sprite, this.collideWith2);
+        game.physics.arcade.collide(this.sprite, this.beds);
 
         //game.physics.arcade.collide(this.sprite, this.collideWith,this.door1,null,this);
         game.physics.arcade.collide(this.sprite,this.door, this.door1);
@@ -327,7 +350,19 @@ var mainState2 = {
                 this.textbox.visible = false;
                 return;
             } 
-        }else {
+        }else if (checkOverlap (this.sprite,this.bookB)) {
+            flag1 = false;
+            this.textbox.visible = true;
+            try {
+                console.log("inside collide");
+                this.text2.text = this.bookTexts[position++];
+            } catch (err) {
+                position = 0;
+                flag1 = true;
+                this.text2.text = '';
+                this.textbox.visible = false;
+                return;
+            } 
             return;
         }   
     },

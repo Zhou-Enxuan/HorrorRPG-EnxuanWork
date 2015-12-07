@@ -24,7 +24,7 @@ function checkOverlap(spriteA, spriteB) {
 }
 
 //Defines main state
-var mainState7 = {
+var mainState4D1 = {
     
     //function that executes at the beginning of the game
     //so we load our assets here
@@ -254,9 +254,8 @@ var mainState7 = {
         this.door3.setAll('body.immovable', true);
         
         //creates the sprite
-        this.sprite = game.add.sprite(80, 0, 'sprite');
+        this.sprite = game.add.sprite(0, 200, 'sprite',8);
 
-        
         //enables the physics system for the sprite
         game.physics.arcade.enable(this.sprite);
         

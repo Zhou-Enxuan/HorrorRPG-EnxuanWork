@@ -1,9 +1,4 @@
-var position8 = 0;
-var flag8 = false;
-var onL8 = false;
-var textbox8;
-var text8;
-var key8 = false;
+var position = 0;
 this.door = null;
 
 function removeText() {
@@ -22,7 +17,7 @@ function checkOverlap(spriteA, spriteB) {
 }
 
 //Defines main state
-var mainState8 = {
+var mainState8D1 = {
     
     //function that executes at the beginning of the game
     //so we load our assets here
@@ -52,7 +47,7 @@ var mainState8 = {
         game.load.image('bear','assests/images/Tile map material/bear1.png');
         game.load.image('bear2','assests/images/Tile map material/bear2.png');
         game.load.image('bear3','assests/images/Tile map material/bear3.png');
-        game.load.image('textbox','assests/images/TextBox.png');
+        
     },
     
 
@@ -62,9 +57,6 @@ var mainState8 = {
         
         var a = this.input.keyboard.addKey(Phaser.Keyboard.A);
         a.onDown.add(this.changeText, this);
-        
-        game.plugins.screenShake = game.plugins.add(Phaser.Plugin.ScreenShake);
-        game.plugins.screenShake.shake(30);
 
         //initializes physics system for the game
         game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -228,15 +220,6 @@ var mainState8 = {
         
         //makes the sprite bouncy
         this.sprite.body.collideWorldBounds = true; 
-        
-        textbox8 = game.add.sprite(12,300,'textbox');
-        textbox8.scale.x = 0.3;
-        textbox8.scale.y = 0.2;
-        
-        this.texts = ['I saw him get in!!','How come he just dispair!?'];
-        textsDoor = ['It\'s the exit','but the door is locked'];
-        var style = {font: '20px Arial', fill:'#FFFFFF', align: 'center'};
-        text8 = game.add.text(50,320,'Where is him!!?',style);
     
     },
     
@@ -244,36 +227,32 @@ var mainState8 = {
     //function that is called 60 times per second
     //where we put the logic of the game
     update: function() {
-       if (flag8) {
-            if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
-                this.sprite.animations.play('walkLeft'); 
-                this.sprite.body.velocity.x = -100;
-                this.sprite.body.velocity.y = 0;
-            } 
-            else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
-                this.sprite.animations.play('walkRight');
-                this.sprite.body.velocity.x = 100;
-                this.sprite.body.velocity.y = 0;
+        if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
+            this.sprite.animations.play('walkLeft'); 
+            this.sprite.body.velocity.x = -100;
+            this.sprite.body.velocity.y = 0;
+        } 
+        else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
+            this.sprite.animations.play('walkRight');
+            this.sprite.body.velocity.x = 100;
+            this.sprite.body.velocity.y = 0;
 
-            } 
-            else if (game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
-                this.sprite.animations.play('walkUp');
-                this.sprite.body.velocity.y = -100;
-                this.sprite.body.velocity.x = 0;
-            }
-            else if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
-                this.sprite.animations.play('walkDown');
-                this.sprite.body.velocity.y = 100;
-                this.sprite.body.velocity.x = 0;
-            }
-            else {
-                this.sprite.body.velocity.x = 0;
-                this.sprite.body.velocity.y = 0;
-            }
-       } else {
+        } 
+        else if (game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
+            this.sprite.animations.play('walkUp');
+            this.sprite.body.velocity.y = -100;
+            this.sprite.body.velocity.x = 0;
+        }
+        else if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
+            this.sprite.animations.play('walkDown');
+            this.sprite.body.velocity.y = 100;
+            this.sprite.body.velocity.x = 0;
+        }
+        else {
             this.sprite.body.velocity.x = 0;
             this.sprite.body.velocity.y = 0;
-       }
+        }
+            
         //make the paddle and the sprite collidable with each other
         //game.physics.arcade.collide(this.paddle, this.sprite);
         
@@ -296,19 +275,12 @@ var mainState8 = {
     },
     
     changeText: function() {
-        if (!onL8) {    
-            try {
-                console.log("inside collide");
-                text8.text = this.texts[position8++];
+        try {
+            console.log("inside collide");
+            this.text1.text = this.texts[position++];
             } catch (err) {
-                flag8 = true;
-                onL8 = true;
-                position8 = 0;
-                text8.text = '';
-                textbox8.visible = false;
                 return;
-            } 
-        }
+            }
     },
     
    door1: function(sprite,door) {

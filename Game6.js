@@ -31,22 +31,6 @@ var mainState6 = {
         game.load.image('TheWall6','assests/images/Tile map material/The wall 6.png' );
         game.load.image('wall','assests/images/Tile map material/white wall.png' );
         game.load.image('HistopalFloor','assests/images/Tile map material/Histopal floor.png');
-        game.load.image('blood1','assests/images/Tile map material/Blood/Blood 1.png');
-        game.load.image('blood2','assests/images/Tile map material/Blood/Blood 2.png');
-        game.load.image('blood3','assests/images/Tile map material/Blood/Blood 3.png');
-        game.load.image('Body1','assests/images/Tile map material/Dead Body/Dead Body 1.png')
-        game.load.image('Body2','assests/images/Tile map material/Dead Body/Dead Body 2.png')
-        game.load.image('Body3','assests/images/Tile map material/Dead Body/Dead Body 3.png')
-        game.load.image('Body4','assests/images/Tile map material/Dead Body/Dead Body 4.png')
-        game.load.image('Bed','assests/images/Tile map material/histopal bed 2.png' );
-        game.load.image('Bag','assests/images/Tile map material/hsitopal bag 2.png' );
-        game.load.image('wall5','assests/images/Tile map material/wall5.png' );
-        game.load.image('wall6','assests/images/Tile map material/wall6.png' );
-        game.load.image('wall7','assests/images/Tile map material/wall7.png' );
-        game.load.image('desk','assests/images/Tile map material/desk tile.png' );
-        game.load.image('desk2','assests/images/Tile map material/desk tile 2.png' );
-        game.load.image('desk3','assests/images/Tile map material/desk tile 3.png' );
-        game.load.image('bedBlock','assests/images/Tile map material/bed block 2.png' );
         game.load.image('showdow1','assests/images/Tile map material/showdow 1.png' );
         game.load.image('showdow2','assests/images/Tile map material/showdow 2.png' );
         game.load.image('showdow3','assests/images/Tile map material/showdow 3.png' );
