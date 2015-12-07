@@ -7,12 +7,12 @@ function removeText() {
 
 }
 
-function checkOverlap(spriteA, spriteB) {
+function checkOverlap2(spriteC, spriteD) {
 
-    var boundsA = spriteA.getBounds();
-    var boundsB = spriteB.getBounds();
+    var boundsC = spriteC.getBounds();
+    var boundsD = spriteD.getBounds();
 
-    return Phaser.Rectangle.intersects(boundsA, boundsB);
+    return Phaser.Rectangle.intersects(boundsC, boundsD);
 
 }
 
@@ -184,7 +184,7 @@ var mainState3 = {
         this.sprite.animations.add('walkUp', [13,14,15,12],8);
         this.sprite.animations.add('stopUp', [12]);
         
-        this.texts = ['aaaaaa','bbbbbbb','cccccc'];
+        this.shellText = ["All inside is medchine!!"];
         var style = {font: '20px Arial', fill:'#FFFFFF', align: 'center'};
         this.text1 = game.add.text(0,0,"",style);
         
@@ -247,17 +247,28 @@ var mainState3 = {
     },
     
     changeText: function() {
-        try {
-            console.log("inside collide");
-            this.text1.text = this.texts[position++];
+       if (checkOverlap2(this.sprite,this.shells)) {
+            flag = false;
+            this.sprite.body.velocity.x = 0;
+            textbox.visible = true;
+            try {
+                console.log(position);
+                text1.text = this.shellText[position++];
             } catch (err) {
+                console.log(position);
+                position = 0;
+                flag = true;
+                text1.text = '';
+                textbox.visible = false;
                 return;
+                
             }
+       }
     },
     
    door1: function(sprite,door) {
        console.log('in');
-        game.state.start('main2');
+        game.state.start('main2D1');
     }
     
 };

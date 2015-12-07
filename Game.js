@@ -121,6 +121,9 @@ var mainState = {
         
         game.physics.arcade.enable(this.door);
         this.door2.visible = false;
+        
+        this.shells = game.add.group();
+        this.shells.enableBody = true;
 
 
         this.roomMaterial = [
@@ -139,7 +142,7 @@ var mainState = {
          for (var i=0; i<this.roomMaterial.length; i++) {
                 for (var j = 0; j<this.roomMaterial[i].length; j++) {
                     if (this.roomMaterial[i][j] === 1) {
-                       this.shell = game.add.sprite(i*51.15-12.5,j*68-10,'HistopalShell');
+                       this.shell = game.add.sprite(i*51.15-12.5,j*68-10,'HistopalShell',0,this.shells);
                        this.shell.scale.x = 1.55;
                         this.shell.scale.y = 2;
                     } else if (this.roomMaterial[i][j] === 2) {
@@ -186,6 +189,7 @@ var mainState = {
         this.collideWith.setAll('body.immovable', true);
         this.door2.setAll('body.immovable', true);
         
+        
         //creates the sprite
         this.sprite = game.add.sprite(303, 253, 'sprite');
         
@@ -215,6 +219,7 @@ var mainState = {
         this.texts = ['This is the key to the door!!!'];
         textsDoor = ['The door is locked','This key didn\'t fit the door'];
         var style = {font: '20px Arial', fill:'#FFFFFF', align: 'center'};
+        this.shellText = ["All inside is medchine!!"];
         text1 = game.add.text(50,320,"",style);
         
     
@@ -273,6 +278,7 @@ var mainState = {
         
     },
     changeText: function() {
+        
         if (checkOverlap(this.sprite,this.doorKey)) {
             flag = false;
             key = true;
@@ -281,10 +287,28 @@ var mainState = {
                 console.log("inside collide");
                 text1.text = this.texts[position++];
             } catch (err) {
+                position = 0;
                 flag = true;
                 text1.text = '';
                 textbox.visible = false;
                 return;
+            }
+            
+        } else if (checkOverlap(this.sprite,this.shells)) {
+            flag = false;
+            this.sprite.body.velocity.x = 0;
+            textbox.visible = true;
+            try {
+                console.log(position);
+                text1.text = this.shellText[position++];
+            } catch (err) {
+                console.log(position);
+                position = 0;
+                flag = true;
+                text1.text = '';
+                textbox.visible = false;
+                return;
+                
             }
             
         } else if (!onL) {
@@ -336,6 +360,7 @@ var game = new Phaser.Game(640, 480, Phaser.AUTO, 'gameDiv');
 
 game.state.add('main', mainState);
 game.state.add('main2',mainState2);
+game.state.add('main2D1',mainState2D1);
 game.state.add('main3',mainState3);
 game.state.add('main4',mainState4);
 game.state.add('main5',mainState5);
@@ -345,4 +370,4 @@ game.state.add('main8',mainState8);
 game.state.add('main9',mainState9);
 game.state.add('main10',mainState10);
 game.state.add('main11',mainState11);
-game.state.start('main');
+game.state.start('main3');

@@ -1,7 +1,7 @@
 var position = 0;
-var onL1 = true;
-var flag1 = false;
-this.door = null;function removeText() {
+this.door = null;
+
+function removeText() {
 
     text.destroy();
 
@@ -19,7 +19,7 @@ function checkOverlap(spriteA, spriteB) {
 }
 
 //Defines main state
-var mainState2 = {
+var mainState2D1 = {
     
     //function that executes at the beginning of the game
     //so we load our assets here
@@ -64,9 +64,6 @@ var mainState2 = {
         
         var a = this.input.keyboard.addKey(Phaser.Keyboard.A);
         a.onDown.add(this.changeText, this);
-        
-        game.plugins.screenShake = game.plugins.add(Phaser.Plugin.ScreenShake);
-        game.plugins.screenShake.shake(30);
 
         //initializes physics system for the game
         game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -243,20 +240,10 @@ var mainState2 = {
         this.sprite.animations.add('walkUp', [13,14,15,12],8);
         this.sprite.animations.add('stopUp', [12]);
         
-        this.texts = ['aaaaaa','bbbbbbb','cccccc'];
-        var style = {font: '20px Arial', fill:'#FFFFFF', align: 'center'};
-        this.text1 = game.add.text(0,0,"",style);
-        
+       
         
         //makes the sprite bouncy
-        this.sprite.body.collideWorldBounds = true; 
-        this.textbox = game.add.sprite(12,300,'textbox');
-        this.textbox.scale.x = 0.3;
-        this.textbox.scale.y = 0.2;
-        
-        this.texts = ['What happened here!?','Why everyone is dead?','Who kill them, is he still around here?'];
-        var style = {font: '20px Arial', fill:'#FFFFFF', align: 'center'};
-        this.text1 = game.add.text(50,320,'OH MY GOOOOOOOD!!!',style);
+       
         
         
     
@@ -266,7 +253,7 @@ var mainState2 = {
     //function that is called 60 times per second
     //where we put the logic of the game
     update: function() {
-        if (flag1) {    
+   
             if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
                 this.sprite.animations.play('walkLeft'); 
                 this.sprite.body.velocity.x = -100;
@@ -292,7 +279,7 @@ var mainState2 = {
                 this.sprite.body.velocity.x = 0;
                 this.sprite.body.velocity.y = 0;
             }
-        }
+
             
         //make the paddle and the sprite collidable with each other
         //game.physics.arcade.collide(this.paddle, this.sprite);
@@ -316,20 +303,7 @@ var mainState2 = {
     },
     
     changeText: function() {
-        if (onL1) {    
-            try {
-                console.log("inside collide");
-                this.text1.text = this.texts[position++];
-            } catch (err) {
-                flag1 = true;
-                onL1 = false;
-                this.text1.text = '';
-                this.textbox.visible = false;
-                return;
-            } 
-        }else {
-            return;
-        }   
+       return;
     },
     
    door1: function(sprite,door) {
