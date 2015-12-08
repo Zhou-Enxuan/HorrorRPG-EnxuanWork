@@ -23,6 +23,7 @@ var mainState6 = {
         
         //loads the sprite sprite
         game.load.spritesheet('sprite', 'assests/images/Horror game character sprite sheet.png', 32, 48);
+        game.load.spritesgeet('enemy','assests/images/layer 2.png',27,32);
         game.load.image('TheWall','assests/images/Tile map material/The wall.png' );
         game.load.image('TheWall2','assests/images/Tile map material/The wall 2.png' );
         game.load.image('TheWall3','assests/images/Tile map material/The wall 3.png' );
