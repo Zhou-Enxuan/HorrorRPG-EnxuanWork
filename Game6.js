@@ -1,4 +1,9 @@
-var position = 0;
+var position6 = 0;
+var onL6 = false;
+var flag6 = false;
+var onLL6 = false;
+var text6;
+var textbox6;
 this.door = null;function removeText() {
 
     text.destroy();
@@ -23,7 +28,7 @@ var mainState6 = {
         
         //loads the sprite sprite
         game.load.spritesheet('sprite', 'assests/images/Horror game character sprite sheet.png', 32, 48);
-        game.load.spritesgeet('enemy','assests/images/layer 2.png',27,32);
+        game.load.spritesheet('enemy','assests/images/layer 2.png',27,32);
         game.load.image('TheWall','assests/images/Tile map material/The wall.png' );
         game.load.image('TheWall2','assests/images/Tile map material/The wall 2.png' );
         game.load.image('TheWall3','assests/images/Tile map material/The wall 3.png' );
@@ -36,7 +41,7 @@ var mainState6 = {
         game.load.image('showdow2','assests/images/Tile map material/showdow 2.png' );
         game.load.image('showdow3','assests/images/Tile map material/showdow 3.png' );
         game.load.image('showdow4','assests/images/Tile map material/showdow 4.png' );
-        
+        game.load.image('textbox','assests/images/TextBox.png');
         
         
     },
@@ -178,9 +183,11 @@ var mainState6 = {
         
         //creates the sprite
         this.sprite = game.add.sprite(310, 480, 'sprite',12);
+        this.enemy = game.add.sprite(320,210,'enemy',3)
         
         //enables the physics system for the sprite
         game.physics.arcade.enable(this.sprite);
+        game.physics.arcade.enable(this.enemy);
         
         this.sprite.animations.add('walkDown', [1,2,3,0],8);
         this.sprite.animations.add('stopDown', [0]);
@@ -191,9 +198,15 @@ var mainState6 = {
         this.sprite.animations.add('walkUp', [13,14,15,12],8);
         this.sprite.animations.add('stopUp', [12]);
         
-        this.texts = ['aaaaaa','bbbbbbb','cccccc'];
+        textbox6 = game.add.sprite(12,300,'textbox');
+        textbox6.scale.x = 0.3;
+        textbox6.scale.y = 0.2;
+        textbox6.visible = false;
+        
+        this.texts = ["I saw him ran to the room on the left."];
+        this.startText = "I need to get closer."
         var style = {font: '20px Arial', fill:'#FFFFFF', align: 'center'};
-        this.text1 = game.add.text(0,0,"",style);
+        text6 = game.add.text(50,320,"",style);
         
         
         //makes the sprite bouncy
@@ -205,32 +218,45 @@ var mainState6 = {
     //function that is called 60 times per second
     //where we put the logic of the game
     update: function() {
-        if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
-            this.sprite.animations.play('walkLeft'); 
-            this.sprite.body.velocity.x = -100;
-            this.sprite.body.velocity.y = 0;
-        } 
-        else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
-            this.sprite.animations.play('walkRight');
-            this.sprite.body.velocity.x = 100;
-            this.sprite.body.velocity.y = 0;
+        if (this.enemy.x > 210) {
+            this.enemy.body.velocity.x = -100;
+        }
+        
+        if (this.enemy.x < 210 && !onLL6) {
+            this.enemy.kill();
+            textbox6.visible = true;
+            onLL6 = true;
+            text6.text = this.startText;
+        }
+        
+        if (flag6) {
+            if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
+                this.sprite.animations.play('walkLeft'); 
+                this.sprite.body.velocity.x = -100;
+                this.sprite.body.velocity.y = 0;
+            } 
+            else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
+                this.sprite.animations.play('walkRight');
+                this.sprite.body.velocity.x = 100;
+                this.sprite.body.velocity.y = 0;
 
-        } 
-        else if (game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
-            this.sprite.animations.play('walkUp');
-            this.sprite.body.velocity.y = -100;
-            this.sprite.body.velocity.x = 0;
+            } 
+            else if (game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
+                this.sprite.animations.play('walkUp');
+                this.sprite.body.velocity.y = -100;
+                this.sprite.body.velocity.x = 0;
+            }
+            else if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
+                this.sprite.animations.play('walkDown');
+                this.sprite.body.velocity.y = 100;
+                this.sprite.body.velocity.x = 0;
+            }
+            else {
+                this.sprite.body.velocity.x = 0;
+                this.sprite.body.velocity.y = 0;
+            }
         }
-        else if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
-            this.sprite.animations.play('walkDown');
-            this.sprite.body.velocity.y = 100;
-            this.sprite.body.velocity.x = 0;
-        }
-        else {
-            this.sprite.body.velocity.x = 0;
-            this.sprite.body.velocity.y = 0;
-        }
-            
+
         //make the paddle and the sprite collidable with each other
         //game.physics.arcade.collide(this.paddle, this.sprite);
         
@@ -253,12 +279,19 @@ var mainState6 = {
     },
     
     changeText: function() {
-        try {
-            console.log("inside collide");
-            this.text1.text = this.texts[position++];
+         if (!onL6) {
+            try {
+                console.log("inside collide");
+                text6.text = this.texts[position6++];
             } catch (err) {
+                flag6 = true;
+                onL6 = true;
+                position6 = 0;
+                text6.text = '';
+                textbox6.visible = false;
                 return;
-            }
+            } 
+        }
     },
     
    door1: function(sprite,door) {

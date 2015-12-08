@@ -307,8 +307,7 @@ var mainState4 = {
         }
         
         if (this.enemy.y < -80 && !onLLL4) {
-            console.log("in nemey check");
-            this.enemy.body.velocity.y = 0;
+            this.enemy.kill();
             textbox4.visible = true;
             onLLL4 = true;
             text4.text = this.startText;
