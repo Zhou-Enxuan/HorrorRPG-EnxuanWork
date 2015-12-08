@@ -2,9 +2,11 @@ var position4 = 0;
 var flag4 = false;
 var onL4 = false;
 var onLL4 = false;
+var onLLL4 = false;
 var textbox4;
 var texts4;
 var textsDoor;
+var startT = false;
 this.door = null;
 
 function removeText() {
@@ -259,12 +261,15 @@ var mainState4 = {
         
         //enables the physics system for the sprite
         game.physics.arcade.enable(this.sprite);
+        game.physics.arcade.enable(this.enemy);
         
         this.sprite.animations.add('walkDown', [1,2,3,0],8);
         this.sprite.animations.add('walkLeft', [5,6,7,4],8);
         this.sprite.animations.add('walkRight', [9,10,11,8],8);
         this.sprite.animations.add('walkUp', [13,14,15,12],8);
         this.enemy.animations.add('EUp',[9,10,11],8);
+        
+        
         
 
         this.texts = ['aaaaaa','bbbbbbb','cccccc'];
@@ -278,13 +283,15 @@ var mainState4 = {
         textbox4 = game.add.sprite(12,300,'textbox');
         textbox4.scale.x = 0.3;
         textbox4.scale.y = 0.2;
+        textbox4.visible = false;
         
         this.texts = ['Is he the murder?','I should quickly follow him keeping my distance.'];
+        this.startText = "What is that?";
         this.juiceTexts = ['$1.00 for soda','........','I don\'t have any money.'];
         this.coffeeTexts = ['HOT Coffee!!','........','It\'s not working'];
         textsDoor = ['It\'s the exit','but the door is locked'];
         var style = {font: '20px Arial', fill:'#FFFFFF', align: 'center'};
-        text4 = game.add.text(50,320,'What is that?',style);
+        text4 = game.add.text(50,320,'',style);
     
     },
     
@@ -292,6 +299,23 @@ var mainState4 = {
     //function that is called 60 times per second
     //where we put the logic of the game
     update: function() {
+        
+        console.log(this.enemy.y);
+        
+        if (this.enemy.y != 0) {
+            this.enemy.body.velocity.y = -100;
+        }
+        
+        if (this.enemy.y < -80 && !onLLL4) {
+            console.log("in nemey check");
+            this.enemy.body.velocity.y = 0;
+            textbox4.visible = true;
+            onLLL4 = true;
+            text4.text = this.startText;
+        }
+        
+   
+        
         
         if (flag4) {
             if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
@@ -347,7 +371,7 @@ var mainState4 = {
     },
     
     changeText: function() {
-        if (!onL4) {    
+        if (!onL4) {
             try {
                 console.log("inside collide");
                 text4.text = this.texts[position4++];

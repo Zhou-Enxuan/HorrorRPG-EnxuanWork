@@ -372,4 +372,4 @@ game.state.add('main8D1',mainState8D1);
 game.state.add('main9',mainState9);
 game.state.add('main10',mainState10);
 game.state.add('main11',mainState11);
-game.state.start('main8');
+game.state.start('main4');
