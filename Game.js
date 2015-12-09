@@ -1,7 +1,10 @@
 var position = 0;
 var key = false;
-var flag = true;
+var flag = false;
+var startT;
+var startTs;
 var onL = true;
+var onLL = false;
 var textsDoor;
 var text1;
 this.door = null;function removeText() {
@@ -217,10 +220,14 @@ var mainState = {
         textbox.visible = false;
         
         this.texts = ['This is the key to the door!!!'];
+        startT = "where am I?";
+        startTs = ["It look like a hispitol.","Why I am in here","I can't remenber anything","Whatever, I have to leave this place"];
         textsDoor = ['The door is locked','This key didn\'t fit the door'];
         var style = {font: '20px Arial', fill:'#FFFFFF', align: 'center'};
         this.shellText = ["All inside is medchine!!"];
         text1 = game.add.text(50,320,"",style);
+        
+        game.time.events.add(Phaser.Timer.SECOND*2, this.textShow, this);
         
     
     },
@@ -258,6 +265,9 @@ var mainState = {
                 this.sprite.body.velocity.y = 0;
             }
             
+        } else {
+            this.sprite.body.velocity.x = 0;
+            this.sprite.body.velocity.y = 0;
         }
 
         //make the paddle and the sprite collidable with each other
@@ -279,7 +289,19 @@ var mainState = {
     },
     changeText: function() {
         
-        if (checkOverlap(this.sprite,this.doorKey)) {
+        if (onLL) {
+            try {
+                console.log("inside collide");
+                text1.text = startTs[position++];
+            } catch (err) {
+                position = 0
+                flag = true;
+                onLL = false;
+                text1.text = '';
+                textbox.visible = false;
+                return;
+            } 
+        }else if (checkOverlap(this.sprite,this.doorKey)) {
             flag = false;
             key = true;
             textbox.visible = true;
@@ -322,14 +344,16 @@ var mainState = {
     },
     
     second: function(sprite, door) {
-        if (!key) {
+        if (!key && !key10) {
             
             console.log(textbox);
             textbox.visible = true;
             text1.text = textsDoor[0];
             onL = false;
             flag = false;
-        } else {
+        } else if (key10) {
+           game.state.start('mainEnd') 
+        } else if (key && !key10){
             console.log(textbox);
             textbox.visible = true;
             text1.text = textsDoor[1];
@@ -350,6 +374,12 @@ var mainState = {
            onL = false;
            this.sprite.body.velocity.x = 0;
        }
+    },
+    textShow: function() {
+        textbox.visible = true;
+        text1.text = startT;
+        onLL = true;
+        
     }
     
 };

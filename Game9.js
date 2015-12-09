@@ -283,7 +283,7 @@ var mainState9 = {
     
     seNcondDoor: function(sprite,door) {
        console.log('in');
-        game.state.start('main8');
+        game.state.start('main8D2');
     },
      thirdDoor: function(sprite,door) {
         console.log('in');

@@ -4,7 +4,8 @@ var mainState0 = {
     //function that executes at the beginning of the game
     //so we load our assets here
     preload: function() {
-        game.load.spritesheet('button', 'assests/images/start.png', 120, 58);
+        game.load.spritesheet('button', 'assests/images/start.png', 128, 58);
+        game.load.image('background', 'assests/images/title screen.png', 128, 58);
         
      
     },
@@ -14,27 +15,14 @@ var mainState0 = {
     //where we setup the basics of the game by displaying sprites etc
     create: function() {
         
-        game.stage.backgroundColor = '#FFFFFF';
-        this.button = game.add.button(game.world.centerX - 95, 400, 'button', this.actionOnClick, this, 1, 0, 1);
+        game.add.sprite(0,0,'background')
+        this.button = game.add.button(260, 400, 'button', this.actionOnClick, this, 1, 0, 1);
         
-        button.onInputOver.add(this.over, this);
-        button.onInputOut.add(this.out, this);
-        button.onInputUp.add(this.up, this);
-        
+     
     
     },
     actionOnClick: function() {
         game.state.start('main');
-    },
-    
-    up: function() {
-        console.log('button up', arguments);
-    },
-    over: function() {
-        console.log('button over');
-    },
-    out: function() {
-        onsole.log('button out');
     }
     
 };
@@ -55,7 +43,11 @@ game.state.add('main6',mainState6);
 game.state.add('main7',mainState7);
 game.state.add('main8',mainState8);
 game.state.add('main8D1',mainState8D1);
+game.state.add('main8D2',mainState8D2);
 game.state.add('main9',mainState9);
+game.state.add('main9D1',mainState9D1);
 game.state.add('main10',mainState10);
 game.state.add('main11',mainState11);
-game.state.start('main8');
+game.state.add('main11D1',mainState11D1);
+game.state.add('mainEnd',mainStateEnd);
+game.state.start('main0');

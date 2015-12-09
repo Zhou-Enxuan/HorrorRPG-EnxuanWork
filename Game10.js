@@ -1,4 +1,8 @@
 var position = 0;
+var key10 = true;
+var flag10 = true;
+var textbox10;
+var text10;
 this.door = null;
 
 function removeText() {
@@ -44,6 +48,7 @@ var mainState10 = {
         game.load.image('drawing2','assests/images/Tile map material/drawing 2.png' );
         game.load.image('desk','assests/images/Tile map material/officie desk.png' );
         game.load.image('flower','assests/images/Tile map material/flower 2.png' );
+        game.load.image('textbox','assests/images/TextBox.png');
         
         
     },
@@ -199,6 +204,15 @@ var mainState10 = {
         
         //makes the sprite bouncy
         this.sprite.body.collideWorldBounds = true; 
+        
+        textbox10 = game.add.sprite(12,300,'textbox');
+        textbox10.scale.x = 0.3;
+        textbox10.scale.y = 0.2;
+        textbox10.visible = false;
+        
+        this.texts = ['Anotehr key.','What could it open?'];
+        var style = {font: '20px Arial', fill:'#FFFFFF', align: 'center'};
+        text10 = game.add.text(50,320,'',style);
     
     },
     
@@ -206,32 +220,33 @@ var mainState10 = {
     //function that is called 60 times per second
     //where we put the logic of the game
     update: function() {
-        if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
-            this.sprite.animations.play('walkLeft'); 
-            this.sprite.body.velocity.x = -100;
-            this.sprite.body.velocity.y = 0;
-        } 
-        else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
-            this.sprite.animations.play('walkRight');
-            this.sprite.body.velocity.x = 100;
-            this.sprite.body.velocity.y = 0;
+        if (flag10) {    
+            if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
+                this.sprite.animations.play('walkLeft'); 
+                this.sprite.body.velocity.x = -100;
+                this.sprite.body.velocity.y = 0;
+            } 
+            else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
+                this.sprite.animations.play('walkRight');
+                this.sprite.body.velocity.x = 100;
+                this.sprite.body.velocity.y = 0;
 
-        } 
-        else if (game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
-            this.sprite.animations.play('walkUp');
-            this.sprite.body.velocity.y = -100;
-            this.sprite.body.velocity.x = 0;
+            } 
+            else if (game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
+                this.sprite.animations.play('walkUp');
+                this.sprite.body.velocity.y = -100;
+                this.sprite.body.velocity.x = 0;
+            }
+            else if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
+                this.sprite.animations.play('walkDown');
+                this.sprite.body.velocity.y = 100;
+                this.sprite.body.velocity.x = 0;
+            }
+            else {
+                this.sprite.body.velocity.x = 0;
+                this.sprite.body.velocity.y = 0;
+            }
         }
-        else if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
-            this.sprite.animations.play('walkDown');
-            this.sprite.body.velocity.y = 100;
-            this.sprite.body.velocity.x = 0;
-        }
-        else {
-            this.sprite.body.velocity.x = 0;
-            this.sprite.body.velocity.y = 0;
-        }
-            
         //make the paddle and the sprite collidable with each other
         //game.physics.arcade.collide(this.paddle, this.sprite);
         
@@ -255,18 +270,31 @@ var mainState10 = {
     },
     
     changeText: function() {
-        try {
-            console.log("inside collide");
-            this.text1.text = this.texts[position++];
+        if (checkOverlap(this.sprite,this.desk)) { 
+            textbox10.visible = true;
+            flag10 = false;
+            key10 = true;
+            try {
+                console.log("inside collide");
+                text10.text = this.texts[position++];
             } catch (err) {
+                textbox10.visible = false;
+                flag10 = true;
+                text10.text = "";
                 return;
+                
             }
+        }
     },
     
    door1: function(sprite,door) {
-       console.log('in');
-        game.state.start('main11');
-    }
+        if (!key10) {
+            
+            game.state.start('main11');
+        } else {
+            game.state.start('main11D1')
+        }
+   }
     
 };
 

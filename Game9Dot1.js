@@ -1,13 +1,15 @@
-var position2 = 0;
-var onL1 = true;
-var flag1 = false;
+var position9 = 0;
+var flag9 = true;
+var textbox9;
+var text9;
+var onL9 = false;
+var texts9;
+var doorStartText9;
 this.door = null;function removeText() {
 
     text.destroy();
 
 }
-
-
 
 function checkOverlap(spriteA, spriteB) {
 
@@ -19,7 +21,7 @@ function checkOverlap(spriteA, spriteB) {
 }
 
 //Defines main state
-var mainState2 = {
+var mainState9D1 = {
     
     //function that executes at the beginning of the game
     //so we load our assets here
@@ -51,8 +53,11 @@ var mainState2 = {
         game.load.image('desk2','assests/images/Tile map material/desk tile 2.png' );
         game.load.image('desk3','assests/images/Tile map material/desk tile 3.png' );
         game.load.image('bedBlock','assests/images/Tile map material/bed block 2.png' );
+        game.load.image('showdow1','assests/images/Tile map material/showdow 1.png' );
+        game.load.image('showdow2','assests/images/Tile map material/showdow 2.png' );
+        game.load.image('showdow3','assests/images/Tile map material/showdow 3.png' );
+        game.load.image('showdow4','assests/images/Tile map material/showdow 4.png' );
         game.load.image('textbox','assests/images/TextBox.png');
-        game.load.image('oldbook','assests/images/Tile map material/old book.png' );
         
         
         
@@ -65,9 +70,6 @@ var mainState2 = {
         
         var a = this.input.keyboard.addKey(Phaser.Keyboard.A);
         a.onDown.add(this.changeText, this);
-        
-        game.plugins.screenShake = game.plugins.add(Phaser.Plugin.ScreenShake);
-        game.plugins.screenShake.shake(30);
 
         //initializes physics system for the game
         game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -79,87 +81,56 @@ var mainState2 = {
         this.collideWith.enableBody = true;
         
         this.room = [
-            [9,9,9,9,9,9,9,10,10,9,9,9,9,9,9,9],
-            [9,1,7,7,7,7,7,0,0,7,7,7,7,7,7,5],
-            [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,8],
-            [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,8],
-            [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,8],
-            [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,8],
-            [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,8],
-            [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,8],
-            [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,8],
-            [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,8],
-            [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,8],
-            [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,8],
-            [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,8],
-            [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,8],
-            [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,8],
-            [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,8],
-            [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,8],
-            [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,8],
-            [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,8],
-            [9,8,11,2,3,0,0,0,0,0,0,0,0,0,0,8],
-            [9,4,7,7,7,7,7,7,7,7,7,7,7,0,0,6]
+            [2,2,2,2,2,2,3,4,2,2,2,2,2,2,2],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
            
         ];
         
         for (var i=0; i<this.room.length; i++) {
                 for (var j = 0; j<this.room[i].length; j++) {
                     if (this.room[i][j] === 0) {
-                        game.add.sprite(i*32-32,j*32-32,'HistopalFloor');
-                    } else if (this.room[i][j] === 1){
-                       game.add.sprite(i*32-32,j*32-32,'TheWall', 0, this.collideWith);
-                    } else if (this.room[i][j] === 2){
-                        game.add.sprite(i*32-32,j*32-32,'wall5',0,this.collideWith)
-                    } else if (this.room[i][j] === 3){
-                        game.add.sprite(i*32-32,j*32-32,'wall6')
-                    } else if (this.room[i][j] === 4) {
-                        game.add.sprite(i*32-32,j*32-32,'TheWall4', 0, this.collideWith);
-                    } else if (this.room[i][j] === 5) {
-                        game.add.sprite(i*32-32,j*32-32,'TheWall3', 0, this.collideWith);
-                    } else if (this.room[i][j] === 6) {
-                        game.add.sprite(i*32-32,j*32-32,'TheWall2', 0, this.collideWith);
-                    } else if (this.room[i][j] === 7) {
-                        game.add.sprite(i*32-32,j*32-32,'TheWall5', 0, this.collideWith);
-                    } else if (this.room[i][j] === 8) {
-                        game.add.sprite(i*32-32,j*32-32,'TheWall6', 0, this.collideWith);
-                    } else if (this.room[i][j] === 10) {
-                        this.door = game.add.sprite(i*32-30,j*32-32,'wall', this.collideWith);
-                        this.door.visible = false;
-                    } else if (this.room[i][j] === 11){
-                        game.add.sprite(i*32-32,j*32-32,'wall7')
-                    } 
+                        game.add.sprite(i*32+210,j*32,'HistopalFloor');
+                    } else if (this.room[i][j] === 2) {
+                        game.add.sprite(i*32+210,j*32,'TheWall5', 0, this.collideWith);
+                    } else if (this.room[i][j] === 3) {
+                        game.add.sprite(i*32+210,j*32,'showdow3');
                 
+                    } else if (this.room[i][j] === 4) {
+                        game.add.sprite(i*32+210,j*32,'showdow4');
+                    }
                 }
-            
             }
         
-        game.physics.arcade.enable(this.door);
         this.collideWith2 = game.add.group();
         this.collideWith2.enableBody = true;
   
 
 
-        this.roomMaterial = [
+        /*this.roomMaterial = [
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,5,0,0,0,0,5,0,0,0,0,0,0],
-            [0,0,0,6,0,0,0,0,6,0,0,0,2,0,0],
-            [0,0,0,0,0,2,0,0,0,0,0,2,0,0,0],
+            [0,0,0,5,0,0,0,0,3,0,0,0,0,0,0],
+            [0,0,0,6,0,2,0,0,0,0,0,0,2,0,0],
+            [0,0,0,0,0,0,0,4,0,0,0,2,0,0,0],
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,5,0,0,1,0,5,0,0,0,0,0,0],
-            [0,0,0,6,0,0,0,0,6,0,0,0,3,0,0],
-            [0,0,0,0,4,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,5,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,6,0,0,0,0,0,0,0,0,3,0,0],
+            [0,0,0,0,4,0,1,0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,5,0,0,0,0,5,0,0,0,0,0,0],
-            [0,0,0,6,0,0,0,0,6,0,0,0,0,2,0],
-            [0,0,0,0,0,0,2,0,0,0,0,0,0,0,0],
+            [0,0,0,5,0,0,0,0,0,3,0,0,0,0,0],
+            [0,0,0,6,0,0,0,0,0,0,0,0,0,2,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
             [0,0,0,0,3,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,5,0,0,0,0,5,0,0,2,0,0,0],
-            [0,0,0,6,0,0,0,0,6,0,0,0,0,0,0],
+            [0,0,0,5,0,0,0,0,1,0,0,2,0,0,0],
+            [0,0,0,6,0,0,0,0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,3,0,4,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,5,1,0,0,3,5,0,0,0,0,0,0],
-            [0,0,0,6,0,9,0,7,6,0,0,0,0,0,0],
+            [0,0,0,5,1,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,6,0,0,0,0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
         ]
@@ -180,71 +151,55 @@ var mainState2 = {
                         game.add.sprite(i*32,j*32,'Bed');
                    }  else if (this.roomMaterial[i][j] === 6) {
                         game.add.sprite(i*32,j*32,'Bag');
-                   } else if (this.roomMaterial[i][j] === 7) {
-                       this.book = game.add.sprite(i*32,j*32,'oldbook', this.collideWith2);
-                       this.book.scale.x = 1.2;
-                       this.book.scale.y = 1.2;
                    } 
                 }
-            }
+            }*/
         
-        this.beds = game.add.group();
-        this.beds.enableBody = true;
+            this.collideWith3 = game.add.group();
+            this.collideWith3.enableBody = true;
+            this.collideWith4 = game.add.group();
+            this.collideWith4.enableBody = true;
         
           this.blockMe = [
+            [0,0,0,0,0,0,1,1,0,0,0,0,0,0,0],
+            [2,0,0,0,0,0,0,0,0,0,0,0,0,0,3],
+            [2,0,0,0,0,0,0,0,0,0,0,0,0,0,3],
+            [2,0,0,0,0,0,0,0,0,0,0,0,0,0,3],
+            [2,0,0,0,0,0,0,0,0,0,0,0,0,0,3],
+            [2,0,0,0,0,0,0,0,0,0,0,0,0,0,3],
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,1,0,0,0,0,1,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,1,0,0,0,0,1,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,1,0,0,0,0,1,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,1,0,0,0,0,1,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,1,0,0,0,0,1,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,2,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0,0,3,3,0],
               
         ]
          
          for (var i=0; i<this.blockMe.length; i++) {
                 for (var j = 0; j<this.blockMe[i].length; j++) {
                      if (this.blockMe[i][j] === 1) {
-                        this.bed = game.add.sprite(i*32,j*32+6,'bedBlock',0,this.beds);
-                         this.bed.visible = false;
-                         this.bed.scale.y = 0.5;
+                        this.door = game.add.sprite(i*32+180,j*32,'wall', this.collideWith2);
+                        this.door.visible = false;
                     } else if (this.blockMe[i][j] === 2) {
-                        this.bookB = game.add.sprite(i*32-10,j*32,'wall');
-                        this.bookB.visible = false;
+                        this.door2 = game.add.sprite(i*32+210,j*32-28,'wall',0, this.collideWith3);
+                        this.door2.visible = false;
                     } else if (this.blockMe[i][j] === 3) {
-                        this.door2 = game.add.sprite(i*32-10,j*32,'wall', this.collideWith);
-                        this.door2.visible = false
+                        this.door3 = game.add.sprite(i*32+210,j*32+28,'wall',0, this.collideWith4);
+                        this.door3.visible = false;
                     }
                 }
           }
         
-         
+         game.physics.arcade.enable(this.door);
+
         
-         game.physics.arcade.enable(this.door2);
         
         
         
         //make bricks immovable when hit
         this.collideWith.setAll('body.immovable', true);  
         this.collideWith2.setAll('body.immovable', true);
-        this.beds.setAll('body.immovable', true);
+        this.collideWith3.setAll('body.immovable', true);
+        this.collideWith4.setAll('body.immovable', true);
         
         //creates the sprite
-        this.sprite = game.add.sprite(0, 200, 'sprite',8);
+        this.sprite = game.add.sprite(210, 200, 'sprite',8);
         
         //enables the physics system for the sprite
         game.physics.arcade.enable(this.sprite);
@@ -265,19 +220,16 @@ var mainState2 = {
         
         //makes the sprite bouncy
         this.sprite.body.collideWorldBounds = true; 
-        this.textbox = game.add.sprite(12,300,'textbox');
-        this.textbox.scale.x = 0.3;
-        this.textbox.scale.y = 0.2;
         
-        this.texts = ['What happened here!?','Why everyone is dead?','Who kill them, is he still around here?'];
-        this.bookTexts = ['HELP!', 'HELP! HELP!!', 'HELP! HELP!! HELP!! HELP!! HELP!!','HELP!HELP!HELP!HELP!HELP!HELP!HELP!HELP!HELP!','HELP!HELP!HELP!HELP!HELP!HELP!HELP!HELP!HELP!\nHELP!HELP!HELP!HELP!HELP!HELP!HELP!HELP!HELP!','HELP!HELP!HELP!HELP!HELP!HELP!HELP!HELP!HELP!\nHELP!HELP!HELP!HELP!HELP!HELP!HELP!HELP!HELP!\nHELP!HELP!HELP!HELP!HELP!HELP!HELP!HELP!HELP!','HELP!HELP!HELP!HELP!HELP!HELP!HELP!HELP!HELP!\nHELP!HELP!HELP!HELP!HELP!HELP!HELP!HELP!HELP!\nHELP!HELP!HELP!HELP!HELP!HELP!HELP!HELP!HELP!\nHELP!HELP!HELP!HELP!HELP!HELP!HELP!HELP!HELP!\nHELP!HELP!HELP!HELP!HELP!HELP!HELP!HELP!HELP!']
+        textbox9 = game.add.sprite(12,300,'textbox');
+        textbox9.scale.x = 0.3;
+        textbox9.scale.y = 0.2;
+        textbox9.visible = false;
+        
+        texts9 = ['There must be a key.'];
+        doorStartText9 = "'The door is locked.'"
         var style = {font: '20px Arial', fill:'#FFFFFF', align: 'center'};
-        var style2 = {font: '20px Arial', fill:'#FF0000', align: 'center'};
-        this.text1 = game.add.text(50,320,'OH MY GOOOOOOOD!!!',style);
-        this.text2 = game.add.text(50,320,'',style2);
-
-        
-        
+        text9 = game.add.text(50,320,'',style);
     
     },
     
@@ -285,7 +237,7 @@ var mainState2 = {
     //function that is called 60 times per second
     //where we put the logic of the game
     update: function() {
-        if (flag1) {    
+        if (flag9) {     
             if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
                 this.sprite.animations.play('walkLeft'); 
                 this.sprite.body.velocity.x = -100;
@@ -311,9 +263,6 @@ var mainState2 = {
                 this.sprite.body.velocity.x = 0;
                 this.sprite.body.velocity.y = 0;
             }
-        } else {
-            this.sprite.body.velocity.x = 0;
-            this.sprite.body.velocity.y = 0;
         }
             
         //make the paddle and the sprite collidable with each other
@@ -323,11 +272,10 @@ var mainState2 = {
         //and calls the "hit" function when they collide
         game.physics.arcade.collide(this.sprite, this.collideWith);
         game.physics.arcade.collide(this.sprite, this.collideWith2);
-        game.physics.arcade.collide(this.sprite, this.beds);
 
-        //game.physics.arcade.collide(this.sprite, this.collideWith,this.door1,null,this);
-        game.physics.arcade.collide(this.sprite,this.door, this.door1);
-        game.physics.arcade.collide(this.sprite,this.door2, this.seNcondDoor);
+        game.physics.arcade.collide(this.sprite,this.door, this.seNcondDoor);
+        game.physics.arcade.collide(this.sprite,this.collideWith3, this.thirdDoor);
+        game.physics.arcade.collide(this.sprite,this.collideWith4, this.door1);
 
 
         /*if (checkOverlap(this.sprite,this.bookShell)) {
@@ -339,43 +287,35 @@ var mainState2 = {
     },
     
     changeText: function() {
-        if (onL1) {    
+        if (onL9) {
             try {
                 console.log("inside collide");
-                this.text1.text = this.texts[position2++];
+                text9.text = texts9[position9++];
             } catch (err) {
-                position2 = 0
-                flag1 = true;
-                onL1 = false;
-                this.text1.text = '';
-                this.textbox.visible = false;
+                flag9 = true;
+                onL9 = false;
+                position9 = 0;
+                text9.text = '';
+                textbox9.visible = false;
                 return;
             } 
-        }else if (checkOverlap (this.sprite,this.bookB)) {
-            flag1 = false;
-            this.textbox.visible = true;
-            try {
-                console.log("inside collide");
-                this.text2.text = this.bookTexts[position2++];
-            } catch (err) {
-                position2 = 0;
-                flag1 = true;
-                this.text2.text = '';
-                this.textbox.visible = false;
-                return;
-            } 
-            return;
-        }   
+        }
     },
     
    door1: function(sprite,door) {
        console.log('in');
-        game.state.start('main3');
+        game.state.start('main7');
     },
     
     seNcondDoor: function(sprite,door) {
        console.log('in');
-        game.state.start('main4');
-    }
+        game.state.start('main8D1');
+    },
+     thirdDoor: function(sprite,door) {
+         textbox9.visible = true;
+         text9.text = doorStartText9;
+         flag9 = false;
+         onL9 = true;
+     }
     
 };

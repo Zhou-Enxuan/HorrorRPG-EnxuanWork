@@ -1,4 +1,9 @@
-var position = 0;
+var position81 = 0;
+var key81 = false;
+var flag81 = true;
+var textbox81;
+var texts81;
+var text81;
 this.door = null;
 
 function removeText() {
@@ -47,6 +52,7 @@ var mainState8D1 = {
         game.load.image('bear','assests/images/Tile map material/bear1.png');
         game.load.image('bear2','assests/images/Tile map material/bear2.png');
         game.load.image('bear3','assests/images/Tile map material/bear3.png');
+        game.load.image('textbox','assests/images/TextBox.png');
         
     },
     
@@ -220,6 +226,16 @@ var mainState8D1 = {
         
         //makes the sprite bouncy
         this.sprite.body.collideWorldBounds = true; 
+        
+        textbox81 = game.add.sprite(12,300,'textbox');
+        textbox81.scale.x = 0.3;
+        textbox81.scale.y = 0.2;
+        textbox81.visible = false;
+        
+        texts81 = ['I saw him get in!!','How come he just dispair!?'];
+        this.pinaoText = ['Found a key, what is this for?']
+        var style = {font: '20px Arial', fill:'#FFFFFF', align: 'center'};
+        text81 = game.add.text(50,320,'',style);
     
     },
     
@@ -275,18 +291,34 @@ var mainState8D1 = {
     },
     
     changeText: function() {
-        try {
-            console.log("inside collide");
-            this.text1.text = this.texts[position++];
+       if (checkOverlap(this.sprite,this.pinao)) {
+            console.log(key81);
+            key81 = true;
+            flag81 = false;
+            textbox81.visible = true;
+             try {
+                console.log("inside collide");
+                text81.text = this.pinaoText[position81++];
             } catch (err) {
+                flag81 = true;
+                position81 = 0;
+                text81.text = '';
+                textbox81.visible = false;
                 return;
-            }
+            } 
+        } 
     },
     
    door1: function(sprite,door) {
-       console.log('in');
-        game.state.start('main9');
-    }
+      
+       if (key81) {
+            console.log('in');
+            game.state.start('main9');
+       } else {
+            game.state.start('main9D1');
+       }
+   }
+
     
 };
 

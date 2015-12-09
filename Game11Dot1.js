@@ -1,12 +1,14 @@
-var position6 = 0;
-var onL6 = false;
-var flag6 = false;
-var onLL6 = false;
-var onLLL6 = false;
-var text6;
-var text61;
-var doorStartText;
-var textbox6;
+var position11 = 0;
+var flag11 = true;
+var textbox11;
+var text11;
+var texts11;
+var onL11 = false;
+var eventT;
+var event = true;
+var enemy;
+var sprite;
+
 this.door = null;function removeText() {
 
     text.destroy();
@@ -23,7 +25,7 @@ function checkOverlap(spriteA, spriteB) {
 }
 
 //Defines main state
-var mainState6 = {
+var mainState11D1 = {
     
     //function that executes at the beginning of the game
     //so we load our assets here
@@ -40,11 +42,28 @@ var mainState6 = {
         game.load.image('TheWall6','assests/images/Tile map material/The wall 6.png' );
         game.load.image('wall','assests/images/Tile map material/white wall.png' );
         game.load.image('HistopalFloor','assests/images/Tile map material/Histopal floor.png');
+        game.load.image('blood1','assests/images/Tile map material/Blood/Blood 1.png');
+        game.load.image('blood2','assests/images/Tile map material/Blood/Blood 2.png');
+        game.load.image('blood3','assests/images/Tile map material/Blood/Blood 3.png');
+        game.load.image('Body1','assests/images/Tile map material/Dead Body/Dead Body 1.png');
+        game.load.image('Body2','assests/images/Tile map material/Dead Body/Dead Body 2.png');
+        game.load.image('Body3','assests/images/Tile map material/Dead Body/Dead Body 3.png');
+        game.load.image('Body4','assests/images/Tile map material/Dead Body/Dead Body 4.png');
+        game.load.image('Bed','assests/images/Tile map material/histopal bed 2.png' );
+        game.load.image('Bag','assests/images/Tile map material/hsitopal bag 2.png' );
+        game.load.image('wall5','assests/images/Tile map material/wall5.png' );
+        game.load.image('wall6','assests/images/Tile map material/wall6.png' );
+        game.load.image('wall7','assests/images/Tile map material/wall7.png' );
+        game.load.image('desk','assests/images/Tile map material/desk tile.png' );
+        game.load.image('desk2','assests/images/Tile map material/desk tile 2.png' );
+        game.load.image('desk3','assests/images/Tile map material/desk tile 3.png' );
+        game.load.image('bedBlock','assests/images/Tile map material/bed block 2.png' );
         game.load.image('showdow1','assests/images/Tile map material/showdow 1.png' );
         game.load.image('showdow2','assests/images/Tile map material/showdow 2.png' );
         game.load.image('showdow3','assests/images/Tile map material/showdow 3.png' );
         game.load.image('showdow4','assests/images/Tile map material/showdow 4.png' );
         game.load.image('textbox','assests/images/TextBox.png');
+        
         
         
     },
@@ -59,6 +78,9 @@ var mainState6 = {
 
         //initializes physics system for the game
         game.physics.startSystem(Phaser.Physics.ARCADE);
+        
+        game.plugins.screenShake = game.plugins.add(Phaser.Plugin.ScreenShake);
+        
         
         //creates a group that will contain all the bricks
         this.collideWith = game.add.group();
@@ -185,106 +207,98 @@ var mainState6 = {
         this.collideWith4.setAll('body.immovable', true);
         
         //creates the sprite
-        this.sprite = game.add.sprite(310, 480, 'sprite',12);
-        this.enemy = game.add.sprite(320,210,'enemy',3)
+        sprite = game.add.sprite(300, 0, 'sprite');
+        enemy = game.add.sprite(303,480,'enemy',9);
+       // enemy.visible = false;
         
         //enables the physics system for the sprite
-        game.physics.arcade.enable(this.sprite);
-        game.physics.arcade.enable(this.enemy);
+        game.physics.arcade.enable(sprite);
+        game.physics.arcade.enable(enemy);
         
-        this.sprite.animations.add('walkDown', [1,2,3,0],8);
-        this.sprite.animations.add('stopDown', [0]);
-        this.sprite.animations.add('walkLeft', [5,6,7,4],8);
-        this.sprite.animations.add('stopLeft', [4]);
-        this.sprite.animations.add('walkRight', [9,10,11,8],8);
-        this.sprite.animations.add('stopRight', [8]);
-        this.sprite.animations.add('walkUp', [13,14,15,12],8);
-        this.sprite.animations.add('stopUp', [12]);
+        sprite.animations.add('walkDown', [1,2,3,0],8);
+        sprite.animations.add('stopDown', [0]);
+        sprite.animations.add('walkLeft', [5,6,7,4],8);
+        sprite.animations.add('stopLeft', [4]);
+        sprite.animations.add('walkRight', [9,10,11,8],8);
+        sprite.animations.add('stopRight', [8]);
+        sprite.animations.add('walkUp', [13,14,15,12],8);
+        sprite.animations.add('stopUp', [12]);
         
-        textbox6 = game.add.sprite(12,300,'textbox');
-        textbox6.scale.x = 0.3;
-        textbox6.scale.y = 0.2;
-        textbox6.visible = false;
+        textbox11 = game.add.sprite(12,300,'textbox');
+        textbox11.scale.x = 0.3;
+        textbox11.scale.y = 0.2;
+        textbox11.visible = false;
         
-        this.texts = ["I saw him ran to the room on the left."];
-        this.startText = "I need to get closer."
-        texts61 = ['There must be a key.'];
-        doorStartText6 = "The door is locked."
-
+        texts11 = ['What happened!?','He just show uo, but where is him now?'];
+        eventT = "Ahhhhhhhh"
         var style = {font: '20px Arial', fill:'#FFFFFF', align: 'center'};
-        text6 = game.add.text(50,320,"",style);
-        
+        text11 = game.add.text(50,320,'',style);
         
         //makes the sprite bouncy
-        this.sprite.body.collideWorldBounds = true; 
-        
+        sprite.body.collideWorldBounds = true; 
 
-        
-   
-
-    
     },
     
     
     //function that is called 60 times per second
     //where we put the logic of the game
     update: function() {
-        if (this.enemy.x > 210) {
-            this.enemy.body.velocity.x = -100;
+        if (sprite.y > 225 && event) {
+            //enemy.visible = true;
+            enemy.x = sprite.x + 3;
+            flag11 = false;
+            enemy.body.velocity.y = -1000;
+            
         }
         
-        if (this.enemy.x < 210 && !onLL6) {
-            this.enemy.kill();
-            textbox6.visible = true;
-            onLL6 = true;
-            text6.text = this.startText;
-        }
         
-        if (flag6) {
+
+        if (flag11) {    
             if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
-                this.sprite.animations.play('walkLeft'); 
-                this.sprite.body.velocity.x = -100;
-                this.sprite.body.velocity.y = 0;
+                sprite.animations.play('walkLeft'); 
+                sprite.body.velocity.x = -100;
+                sprite.body.velocity.y = 0;
             } 
             else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
-                this.sprite.animations.play('walkRight');
-                this.sprite.body.velocity.x = 100;
-                this.sprite.body.velocity.y = 0;
+                sprite.animations.play('walkRight');
+                sprite.body.velocity.x = 100;
+                sprite.body.velocity.y = 0;
 
             } 
             else if (game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
-                this.sprite.animations.play('walkUp');
-                this.sprite.body.velocity.y = -100;
-                this.sprite.body.velocity.x = 0;
+                sprite.animations.play('walkUp');
+                sprite.body.velocity.y = -100;
+                sprite.body.velocity.x = 0;
             }
             else if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
-                this.sprite.animations.play('walkDown');
-                this.sprite.body.velocity.y = 100;
-                this.sprite.body.velocity.x = 0;
+                sprite.animations.play('walkDown');
+                sprite.body.velocity.y = 100;
+                sprite.body.velocity.x = 0;
             }
             else {
-                this.sprite.body.velocity.x = 0;
-                this.sprite.body.velocity.y = 0;
+                sprite.body.velocity.x = 0;
+                sprite.body.velocity.y = 0;
             }
         } else {
-            this.sprite.body.velocity.x = 0;
-            this.sprite.body.velocity.y = 0;
+            sprite.body.velocity.x = 0;
+            sprite.body.velocity.y = 0;
         }
-
+            
         //make the paddle and the sprite collidable with each other
-        //game.physics.arcade.collide(this.paddle, this.sprite);
+        //game.physics.arcade.collide(this.paddle, sprite);
         
         //makes the sprite and the bricks collidable with each other
         //and calls the "hit" function when they collide
-        game.physics.arcade.collide(this.sprite, this.collideWith);
-        game.physics.arcade.collide(this.sprite, this.collideWith2);
+        game.physics.arcade.collide(sprite, this.collideWith);
+        game.physics.arcade.collide(sprite, this.collideWith2);
+          game.physics.arcade.collide(sprite, enemy,this.hitEnemy);
 
-        game.physics.arcade.collide(this.sprite,this.door, this.seNcondDoor);
-        game.physics.arcade.collide(this.sprite,this.collideWith3, this.thirdDoor);
-        game.physics.arcade.collide(this.sprite,this.collideWith4, this.door1);
+        game.physics.arcade.collide(sprite,this.door, this.seNcondDoor);
+        game.physics.arcade.collide(sprite,this.collideWith3, this.thirdDoor);
+        game.physics.arcade.collide(sprite,this.collideWith4, this.door1);
 
 
-        /*if (checkOverlap(this.sprite,this.bookShell)) {
+        /*if (checkOverlap(sprite,this.bookShell)) {
             game.state.start('main2');
         } else {
             return;
@@ -293,30 +307,18 @@ var mainState6 = {
     },
     
     changeText: function() {
-         if (!onL6) {
+        if (onL11) {
             try {
                 console.log("inside collide");
-                text6.text = this.texts[position6++];
+                text11.text = texts11[position11++];
             } catch (err) {
-                flag6 = true;
-                onL6 = true;
-                position6 = 0;
-                text6.text = '';
-                textbox6.visible = false;
+                onL11 = false;
+                textbox11.visible = false;
+                position11 = 0
+                flag11 = true;
+                text11.text = "";
                 return;
-            } 
-        } else if (onLLL6) {
-            try {
-                console.log("inside collide");
-                text6.text = texts61[position6++];
-            } catch (err) {
-                flag6 = true;
-                onLLL6 = false;
-                position6 = 0;
-                text6.text = '';
-                textbox6.visible = false;
-                return;
-            } 
+            }
         }
     },
     
@@ -329,11 +331,18 @@ var mainState6 = {
        console.log('in');
         game.state.start('main8');
     },
-     thirdDoor: function(sprite,door) {
-        textbox6.visible = true;
-        text6.text = doorStartText6;
-        flag6 = false;
-        onLLL6 = true;
-     }
+    thirdDoor: function(sprite,door) {
+       console.log('in');
+        game.state.start('main10');
+    },
+    hitEnemy: function(sprite,enemy) {
+        enemy.kill();
+        event = false;
+        textbox11.visible = true;
+        onL11 = true;
+        text11.text = eventT;
+        game.plugins.screenShake.shake(30);
+
+    }
     
 };

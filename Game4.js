@@ -239,7 +239,7 @@ var mainState4 = {
                      this.door2.visible = false;
                    } else if (this.blockMe[i][j] === 2) {
                      this.door3B = game.add.sprite(i*32-32,j*32-5,'wall',0, this.door3);
-                     //this.door3B.visible = false;
+                     this.door3B.visible = false;
                    }
                 } 
           }
@@ -390,7 +390,6 @@ var mainState4 = {
                 text4.text = this.juiceTexts[position4++];
             } catch (err) {
                 flag4 = true;
-                onL4 = false;
                 position4 = 0;
                 text4.text = '';
                 textbox4.visible = false;
@@ -404,7 +403,6 @@ var mainState4 = {
                 text4.text = this.coffeeTexts[position4++];
             } catch (err) {
                 flag4 = true;
-                onL4 = false;
                 position4 = 0;
                 text4.text = '';
                 textbox4.visible = false;
