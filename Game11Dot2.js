@@ -6,7 +6,6 @@ var texts11;
 var onL11 = false;
 var eventT;
 var event = true;
-var enemy;
 var sprite;
 
 this.door = null;function removeText() {
@@ -25,7 +24,7 @@ function checkOverlap(spriteA, spriteB) {
 }
 
 //Defines main state
-var mainState11D1 = {
+var mainState11D2 = {
     
     //function that executes at the beginning of the game
     //so we load our assets here
@@ -33,7 +32,6 @@ var mainState11D1 = {
         
         //loads the sprite sprite
         game.load.spritesheet('sprite', 'assests/images/Horror game character sprite sheet.png', 32, 48);
-        game.load.spritesheet('enemy','assests/images/layer 2.png',27,32);
         game.load.image('TheWall','assests/images/Tile map material/The wall.png' );
         game.load.image('TheWall2','assests/images/Tile map material/The wall 2.png' );
         game.load.image('TheWall3','assests/images/Tile map material/The wall 3.png' );
@@ -208,13 +206,11 @@ var mainState11D1 = {
         
         //creates the sprite
         sprite = game.add.sprite(300, 0, 'sprite');
-        enemy = game.add.sprite(303,480,'enemy',9);
+
        // enemy.visible = false;
         
         //enables the physics system for the sprite
         game.physics.arcade.enable(sprite);
-        game.physics.arcade.enable(enemy);
-        
         sprite.animations.add('walkDown', [1,2,3,0],8);
         sprite.animations.add('stopDown', [0]);
         sprite.animations.add('walkLeft', [5,6,7,4],8);
@@ -224,7 +220,7 @@ var mainState11D1 = {
         sprite.animations.add('walkUp', [13,14,15,12],8);
         sprite.animations.add('stopUp', [12]);
         
-        textbox11 = game.add.sprite(12,300,'textbox');
+        textbox11 = game.add.sprite(210, 200,'textbox');
         textbox11.scale.x = 0.3;
         textbox11.scale.y = 0.2;
         textbox11.visible = false;
@@ -243,13 +239,6 @@ var mainState11D1 = {
     //function that is called 60 times per second
     //where we put the logic of the game
     update: function() {
-        if (sprite.y > 225 && event) {
-            //enemy.visible = true;
-            enemy.x = sprite.x + 3;
-            flag11 = false;
-            enemy.body.velocity.y = -1000;
-            
-        }
         
         
 
@@ -291,7 +280,7 @@ var mainState11D1 = {
         //and calls the "hit" function when they collide
         game.physics.arcade.collide(sprite, this.collideWith);
         game.physics.arcade.collide(sprite, this.collideWith2);
-          game.physics.arcade.collide(sprite, enemy,this.hitEnemy);
+    
 
         game.physics.arcade.collide(sprite,this.door, this.seNcondDoor);
         game.physics.arcade.collide(sprite,this.collideWith3, this.thirdDoor);
@@ -334,15 +323,6 @@ var mainState11D1 = {
     thirdDoor: function(sprite,door) {
        console.log('in');
         game.state.start('main10');
-    },
-    hitEnemy: function(sprite,enemy) {
-        enemy.kill();
-        event = false;
-        textbox11.visible = true;
-        onL11 = true;
-        text11.text = eventT;
-        game.plugins.screenShake.shake(30);
-
     }
     
 };

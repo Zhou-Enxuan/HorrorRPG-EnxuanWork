@@ -1,5 +1,5 @@
 var position = 0;
-var key10 = true;
+var key10 = false;
 var flag10 = true;
 var textbox10;
 var text10;

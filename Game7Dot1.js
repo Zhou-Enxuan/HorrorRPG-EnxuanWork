@@ -24,7 +24,7 @@ function checkOverlap(spriteA, spriteB) {
 }
 
 //Defines main state
-var mainState7 = {
+var mainState7D1 = {
     
     //function that executes at the beginning of the game
     //so we load our assets here
@@ -381,7 +381,7 @@ var mainState7 = {
     
    door1: function(sprite,door) {
        console.log('in');
-        game.state.start('main5');
+        game.state.start('main5D1');
     },
     
     seNcondDoor: function(sprite,door) {
